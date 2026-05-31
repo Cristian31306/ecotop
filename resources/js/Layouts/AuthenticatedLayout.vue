@@ -32,6 +32,9 @@ const user = usePage().props.auth.user;
                                 <NavLink :href="route('dashboard')" :active="route().current('dashboard')">
                                     Explorar Ecosistemas
                                 </NavLink>
+                                <NavLink :href="route('leaderboard')" :active="route().current('leaderboard')">
+                                    Podio Global
+                                </NavLink>
                                 <NavLink v-if="user.role === 'admin'" :href="route('admin.ecosystems.index')" :active="route().current('admin.*')">
                                     Administración
                                 </NavLink>
@@ -88,6 +91,9 @@ const user = usePage().props.auth.user;
                     <div class="pt-2 pb-3 space-y-1">
                         <ResponsiveNavLink :href="route('dashboard')" :active="route().current('dashboard')">
                             Dashboard
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink :href="route('leaderboard')" :active="route().current('leaderboard')">
+                            Podio Global
                         </ResponsiveNavLink>
                         <ResponsiveNavLink v-if="user.role === 'admin'" :href="route('admin.ecosystems.index')" :active="route().current('admin.*')">
                             Administración

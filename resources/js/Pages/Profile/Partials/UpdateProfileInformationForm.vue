@@ -25,12 +25,12 @@ const form = useForm({
 <template>
     <section>
         <header>
-            <h2 class="text-lg font-medium text-gray-900">
-                Profile Information
+            <h2 class="text-xl font-bold text-gray-800">
+                Información del Perfil
             </h2>
 
-            <p class="mt-1 text-sm text-gray-600">
-                Update your account's profile information and email address.
+            <p class="mt-1 text-sm text-gray-500">
+                Actualiza los datos personales de tu cuenta y tu dirección de correo electrónico.
             </p>
         </header>
 
@@ -39,7 +39,7 @@ const form = useForm({
             class="mt-6 space-y-6"
         >
             <div>
-                <InputLabel for="name" value="Name" />
+                <InputLabel for="name" value="Nombre Completo" />
 
                 <TextInput
                     id="name"
@@ -55,7 +55,7 @@ const form = useForm({
             </div>
 
             <div>
-                <InputLabel for="email" value="Email" />
+                <InputLabel for="email" value="Correo Electrónico" />
 
                 <TextInput
                     id="email"
@@ -71,27 +71,27 @@ const form = useForm({
 
             <div v-if="mustVerifyEmail && user.email_verified_at === null">
                 <p class="mt-2 text-sm text-gray-800">
-                    Your email address is unverified.
+                    Tu dirección de correo no está verificada.
                     <Link
                         :href="route('verification.send')"
                         method="post"
                         as="button"
-                        class="rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                        class="rounded-md text-sm text-emerald-600 underline hover:text-emerald-800 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 transition-colors"
                     >
-                        Click here to re-send the verification email.
+                        Haz clic aquí para reenviar el correo de verificación.
                     </Link>
                 </p>
 
                 <div
                     v-show="status === 'verification-link-sent'"
-                    class="mt-2 text-sm font-medium text-green-600"
+                    class="mt-2 text-sm font-medium text-emerald-600"
                 >
-                    A new verification link has been sent to your email address.
+                    Se ha enviado un nuevo enlace de verificación a tu correo.
                 </div>
             </div>
 
             <div class="flex items-center gap-4">
-                <PrimaryButton :disabled="form.processing">Save</PrimaryButton>
+                <PrimaryButton :disabled="form.processing">Guardar Cambios</PrimaryButton>
 
                 <Transition
                     enter-active-class="transition ease-in-out"
@@ -101,9 +101,12 @@ const form = useForm({
                 >
                     <p
                         v-if="form.recentlySuccessful"
-                        class="text-sm text-gray-600"
+                        class="text-sm font-semibold text-emerald-600 flex items-center gap-1"
                     >
-                        Saved.
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" />
+                        </svg>
+                        Guardado correctamente.
                     </p>
                 </Transition>
             </div>

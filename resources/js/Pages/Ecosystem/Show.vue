@@ -16,16 +16,21 @@ const contentCards = computed(() => {
 });
 
 const currentSlide = ref(0);
+const isImageZoomed = ref(false);
 
 const nextSlide = () => {
     if (currentSlide.value < contentCards.value.length - 1) {
         currentSlide.value++;
+        isImageZoomed.value = false;
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 };
 
 const prevSlide = () => {
     if (currentSlide.value > 0) {
         currentSlide.value--;
+        isImageZoomed.value = false;
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 };
 </script>
@@ -67,8 +72,27 @@ const prevSlide = () => {
                             <div :key="currentSlide" class="w-full max-w-3xl mx-auto flex flex-col items-start">
                                 
                                 <!-- Renderizar Imagen si existe -->
-                                <div v-if="contentCards[currentSlide].image" class="mb-8 w-full rounded-2xl overflow-hidden shadow-lg border border-gray-100/50 bg-white">
-                                    <img :src="contentCards[currentSlide].image" class="w-full max-h-[400px] object-cover transition-transform hover:scale-105 duration-700" alt="Ilustración del Ecosistema">
+                                <div 
+                                    v-if="contentCards[currentSlide].image" 
+                                    class="mb-6 lg:mb-8 w-full rounded-2xl overflow-hidden shadow-lg border border-gray-100/50 bg-white relative group cursor-zoom-in"
+                                    @click="isImageZoomed = true"
+                                >
+                                    <div class="w-full aspect-[16/9] md:aspect-auto md:h-[400px] overflow-hidden">
+                                        <img 
+                                            :src="contentCards[currentSlide].image" 
+                                            class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" 
+                                            alt="Ilustración del Ecosistema"
+                                        >
+                                    </div>
+                                    
+                                    <!-- Icono de Zoom al pasar el cursor (o pulsar) -->
+                                    <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                                        <div class="bg-white/20 backdrop-blur-md p-3 rounded-full text-white shadow-lg border border-white/30 transform scale-90 group-hover:scale-100 transition-transform duration-300">
+                                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v6m3-3H7" />
+                                            </svg>
+                                        </div>
+                                    </div>
                                 </div>
                                 
                                 <div class="w-full prose prose-emerald md:prose-lg max-w-none text-gray-700 leading-relaxed text-base lg:text-lg prose-headings:text-emerald-800 prose-a:text-emerald-600">
@@ -119,6 +143,33 @@ const prevSlide = () => {
                     </p>
                 </div>
             </transition>
+            
+            <!-- Lightbox/Zoom Modal -->
+            <transition name="fade-zoom">
+                <div 
+                    v-if="isImageZoomed && contentCards[currentSlide].image" 
+                    @click="isImageZoomed = false"
+                    class="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-lg p-4 cursor-zoom-out animate-fade-in"
+                >
+                    <!-- Close button -->
+                    <button 
+                        @click="isImageZoomed = false"
+                        class="absolute top-4 right-4 text-white/70 hover:text-white bg-white/10 hover:bg-white/25 p-3 rounded-full border border-white/10 transition-colors"
+                        title="Cerrar vista completa"
+                    >
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                    
+                    <!-- Zoomed Image -->
+                    <img 
+                        :src="contentCards[currentSlide].image" 
+                        class="max-w-full max-h-[85vh] object-contain rounded-2xl shadow-2xl border border-white/10 transform transition-transform duration-300"
+                        alt="Vista ampliada"
+                    >
+                </div>
+            </transition>
         </div>
     </AuthenticatedLayout>
 </template>
@@ -138,6 +189,28 @@ const prevSlide = () => {
 .fade-leave-to {
   opacity: 0;
   transform: translateX(-20px);
+}
+
+/* Transición para el zoom del lightbox */
+.fade-zoom-enter-active,
+.fade-zoom-leave-active {
+  transition: opacity 0.3s ease;
+}
+.fade-zoom-enter-active img,
+.fade-zoom-leave-active img {
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.fade-zoom-enter-from {
+  opacity: 0;
+}
+.fade-zoom-enter-from img {
+  transform: scale(0.9);
+}
+.fade-zoom-leave-to {
+  opacity: 0;
+}
+.fade-zoom-leave-to img {
+  transform: scale(0.95);
 }
 
 /* ==========================================================================

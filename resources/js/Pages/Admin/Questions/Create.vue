@@ -4,10 +4,11 @@ import { Head, useForm, Link } from '@inertiajs/vue3';
 
 const props = defineProps({
     ecosystems: Array,
+    selected_ecosystem_id: [Number, String],
 });
 
 const form = useForm({
-    ecosystem_id: '',
+    ecosystem_id: props.selected_ecosystem_id || '',
     question_text: '',
     options: ['', '', '', ''],
     correct_option_index: 0,

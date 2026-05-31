@@ -23,6 +23,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/quiz/{ecosystem}', [QuizController::class, 'submit'])->name('quiz.submit');
 
     Route::get('/api/leaderboard', [LeaderboardController::class, 'getTop10'])->name('api.leaderboard');
+    Route::get('/leaderboard', [LeaderboardController::class, 'index'])->name('leaderboard');
     
     Route::get('/diploma/download', [DiplomaController::class, 'download'])->name('diploma.download');
 

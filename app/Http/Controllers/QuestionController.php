@@ -14,14 +14,16 @@ class QuestionController extends Controller
     public function index()
     {
         return Inertia::render('Admin/Questions/Index', [
-            'questions' => Question::with('ecosystem')->get()
+            'questions' => Question::with('ecosystem')->get(),
+            'ecosystems' => Ecosystem::withCount('questions')->orderBy('day_number')->get(),
         ]);
     }
 
-    public function create()
+    public function create(Request $request)
     {
         return Inertia::render('Admin/Questions/Create', [
-            'ecosystems' => Ecosystem::all()
+            'ecosystems' => Ecosystem::all(),
+            'selected_ecosystem_id' => $request->query('ecosystem_id') ? (int) $request->query('ecosystem_id') : null,
         ]);
     }
 

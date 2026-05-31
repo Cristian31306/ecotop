@@ -4,7 +4,7 @@ import InputError from '@/Components/InputError.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
-import { Head, useForm } from '@inertiajs/vue3';
+import { Head, useForm, Link } from '@inertiajs/vue3';
 
 defineProps({
     status: {
@@ -23,24 +23,22 @@ const submit = () => {
 
 <template>
     <GuestLayout>
-        <Head title="Forgot Password" />
+        <Head title="Recuperar Contraseña" />
 
-        <div class="mb-4 text-sm text-gray-600">
-            Forgot your password? No problem. Just let us know your email
-            address and we will email you a password reset link that will allow
-            you to choose a new one.
+        <div class="mb-4 text-sm text-gray-600 leading-relaxed">
+            ¿Olvidaste tu contraseña? No te preocupes. Escribe tu correo electrónico y te enviaremos un enlace de recuperación para que puedas elegir una nueva.
         </div>
 
         <div
             v-if="status"
-            class="mb-4 text-sm font-medium text-green-600"
+            class="mb-4 text-sm font-medium text-emerald-600"
         >
             {{ status }}
         </div>
 
-        <form @submit.prevent="submit">
+        <form @submit.prevent="submit" class="space-y-4">
             <div>
-                <InputLabel for="email" value="Email" />
+                <InputLabel for="email" value="Correo Electrónico" />
 
                 <TextInput
                     id="email"
@@ -50,17 +48,25 @@ const submit = () => {
                     required
                     autofocus
                     autocomplete="username"
+                    placeholder="ejemplo@ecotop.com"
                 />
 
                 <InputError class="mt-2" :message="form.errors.email" />
             </div>
 
-            <div class="mt-4 flex items-center justify-end">
+            <div class="flex items-center justify-between mt-4">
+                <Link
+                    :href="route('login')"
+                    class="rounded-md text-sm text-gray-600 underline hover:text-emerald-700 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 transition-colors"
+                >
+                    &larr; Volver al Login
+                </Link>
+
                 <PrimaryButton
                     :class="{ 'opacity-25': form.processing }"
                     :disabled="form.processing"
                 >
-                    Email Password Reset Link
+                    Enviar Enlace de Recuperación
                 </PrimaryButton>
             </div>
         </form>
