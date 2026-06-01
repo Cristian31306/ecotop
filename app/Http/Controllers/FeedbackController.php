@@ -18,9 +18,12 @@ class FeedbackController extends Controller
             abort(403, 'No autorizado.');
         }
 
-        $feedbacks = Feedback::with('user')
-            ->latest()
-            ->get();
+        $feedbacks = Feedback::whereHas('user', function ($query) {
+            $query->whereNotIn('role', ['admin', 'tester']);
+        })
+        ->with('user')
+        ->latest()
+        ->get();
 
         $totalCount = $feedbacks->count();
         $averageRating = $totalCount > 0 ? round($feedbacks->avg('rating'), 1) : 0;
