@@ -6,6 +6,7 @@ use Inertia\Inertia;
 use App\Models\Ecosystem;
 use App\Models\UserScore;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class QuizController extends Controller
 {
@@ -16,8 +17,8 @@ class QuizController extends Controller
         // Verificar si ya tiene score (bloquear reintentos) - Omitir si es admin
         if ($user->role !== 'admin') {
             $existingScore = UserScore::where('user_id', $user->id)
-                                      ->where('ecosystem_id', $ecosystem->id)
-                                      ->first();
+                                       ->where('ecosystem_id', $ecosystem->id)
+                                       ->first();
 
             if ($existingScore) {
                 return redirect()->route('ecosystem.show', $ecosystem->id)
@@ -49,10 +50,13 @@ class QuizController extends Controller
     {
         $user = $request->user();
 
-        // Verificar intento - Omitir si es admin
+        // Verificar intento inicial rápido - Omitir si es admin
         if ($user->role !== 'admin') {
             if (UserScore::where('user_id', $user->id)->where('ecosystem_id', $ecosystem->id)->exists()) {
-                return response()->json(['error' => 'Ya has completado este quiz.'], 403);
+                if ($request->expectsJson()) {
+                    return response()->json(['error' => 'Ya has completado este quiz.'], 403);
+                }
+                return redirect()->route('ecosystem.show', $ecosystem->id)->with('error', 'Ya has completado este quiz.');
             }
         }
 
@@ -87,36 +91,58 @@ class QuizController extends Controller
             }
         }
 
-        // Calcular el bono por orden de llegada (Early Bird Bonus)
-        // Solo se otorga si el usuario actual es un usuario común (no admin ni tester)
-        $earlyBirdBonus = 0;
-        if ($user->role !== 'admin' && $user->role !== 'tester') {
-            $previousCompletions = UserScore::where('ecosystem_id', $ecosystem->id)
-                ->whereHas('user', function ($query) {
-                    $query->whereNotIn('role', ['admin', 'tester']);
-                })
-                ->count();
+        try {
+            DB::transaction(function () use ($user, $ecosystem, $baseScore, $timeBonus, $request) {
+                // Bloqueamos el registro del ecosistema para serializar los envíos de este módulo
+                Ecosystem::where('id', $ecosystem->id)->lockForUpdate()->first();
 
-            if ($previousCompletions === 0) {
-                $earlyBirdBonus = 30; // 1er Lugar
-            } elseif ($previousCompletions === 1) {
-                $earlyBirdBonus = 20; // 2do Lugar
-            } elseif ($previousCompletions === 2) {
-                $earlyBirdBonus = 10; // 3er Lugar
+                // Verificar intento de nuevo dentro del bloqueo
+                if ($user->role !== 'admin') {
+                    if (UserScore::where('user_id', $user->id)->where('ecosystem_id', $ecosystem->id)->exists()) {
+                        throw new \Exception('Ya has completado este quiz.', 403);
+                    }
+                }
+
+                // Calcular el bono por orden de llegada (Early Bird Bonus)
+                // Solo se otorga si el usuario actual es un usuario común (no admin ni tester)
+                $earlyBirdBonus = 0;
+                if ($user->role !== 'admin' && $user->role !== 'tester') {
+                    $previousCompletions = UserScore::where('ecosystem_id', $ecosystem->id)
+                        ->whereHas('user', function ($query) {
+                            $query->whereNotIn('role', ['admin', 'tester']);
+                        })
+                        ->count();
+
+                    if ($previousCompletions === 0) {
+                        $earlyBirdBonus = 30; // 1er Lugar
+                    } elseif ($previousCompletions === 1) {
+                        $earlyBirdBonus = 20; // 2do Lugar
+                    } elseif ($previousCompletions === 2) {
+                        $earlyBirdBonus = 10; // 3er Lugar
+                    }
+                }
+
+                $totalScore = $baseScore + $timeBonus + $earlyBirdBonus;
+
+                UserScore::updateOrCreate(
+                    [
+                        'user_id' => $user->id,
+                        'ecosystem_id' => $ecosystem->id,
+                    ],
+                    [
+                        'score' => $totalScore,
+                    ]
+                );
+            });
+        } catch (\Exception $e) {
+            if ($e->getCode() === 403) {
+                if ($request->expectsJson()) {
+                    return response()->json(['error' => $e->getMessage()], 403);
+                }
+                return redirect()->route('ecosystem.show', $ecosystem->id)->with('error', $e->getMessage());
             }
+            throw $e;
         }
-
-        $totalScore = $baseScore + $timeBonus + $earlyBirdBonus;
-
-        UserScore::updateOrCreate(
-            [
-                'user_id' => $user->id,
-                'ecosystem_id' => $ecosystem->id,
-            ],
-            [
-                'score' => $totalScore,
-            ]
-        );
 
         return redirect()->route('dashboard');
     }

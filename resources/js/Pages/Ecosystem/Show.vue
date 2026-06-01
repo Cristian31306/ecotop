@@ -135,6 +135,45 @@ const prevSlide = () => {
             <transition name="fade">
                 <div v-if="currentSlide === contentCards.length - 1 || hasCompleted" class="text-center bg-white/40 backdrop-blur-md rounded-3xl p-8 lg:p-12 border border-white shadow-xl max-w-2xl mx-auto mt-8">
                     <h3 class="text-2xl font-bold text-gray-800 mb-6">{{ hasCompleted ? 'Lección Completada' : '¡Has terminado la lectura!' }}</h3>
+                    
+                    <!-- Banner Informativo del Sistema de Puntos -->
+                    <div class="mb-8 text-left bg-gradient-to-r from-emerald-500/10 via-teal-500/10 to-amber-500/10 backdrop-blur-md rounded-2xl p-6 border border-emerald-100/50 shadow-inner relative overflow-hidden group">
+                        <!-- Destello de fondo -->
+                        <div class="absolute -right-8 -top-8 w-24 h-24 bg-amber-400/10 rounded-full blur-xl group-hover:scale-110 transition-transform duration-500"></div>
+                        <div class="absolute -left-8 -bottom-8 w-24 h-24 bg-emerald-400/10 rounded-full blur-xl group-hover:scale-110 transition-transform duration-500"></div>
+
+                        <div class="flex flex-col md:flex-row items-start gap-4 relative z-10">
+                            <div class="bg-amber-100 text-amber-800 p-2.5 rounded-xl shadow-inner flex items-center justify-center flex-shrink-0 animate-pulse">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                            </div>
+                            <div class="flex-1">
+                                <h4 class="text-base font-bold text-emerald-950 mb-1 flex items-center gap-1.5">
+                                    ¡Reglas de Puntos Activas! 🚀
+                                </h4>
+                                <p class="text-xs text-emerald-800 leading-relaxed mb-3">
+                                    Completa la evaluación para sumar puntos a tu ranking. ¡El tiempo y la velocidad de entrega cuentan!
+                                </p>
+                                
+                                <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+                                    <div class="bg-white/60 p-2.5 rounded-xl border border-emerald-100/50 hover:bg-white/90 transition-colors">
+                                        <span class="block text-[10px] font-bold uppercase text-emerald-700 mb-0.5">⚡ Velocidad (Hoy)</span>
+                                        <span class="text-[11px] text-gray-600 leading-tight block">Hasta <strong>+60 pts</strong> adicionales si respondes rápido hoy mismo.</span>
+                                    </div>
+                                    <div class="bg-white/60 p-2.5 rounded-xl border border-emerald-100/50 hover:bg-white/90 transition-colors">
+                                        <span class="block text-[10px] font-bold uppercase text-amber-700 mb-0.5">🏆 Primeros puestos</span>
+                                        <span class="text-[11px] text-gray-600 leading-tight block">Bono de llegada: <strong>1° (+30 pts)</strong>, <strong>2° (+20 pts)</strong> y <strong>3° (+10 pts)</strong>.</span>
+                                    </div>
+                                    <div class="bg-white/60 p-2.5 rounded-xl border border-emerald-100/50 hover:bg-white/90 transition-colors">
+                                        <span class="block text-[10px] font-bold uppercase text-teal-700 mb-0.5">🎯 Precisión</span>
+                                        <span class="text-[11px] text-gray-600 leading-tight block">Cada respuesta correcta otorga <strong>+20 pts</strong> base.</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <Link v-if="!hasCompleted || canRetry" :href="route('quiz.show', ecosystem.id)" class="btn-primary text-xl px-10 py-5 w-full sm:w-auto shadow-emerald-500/30 hover:shadow-emerald-500/50 hover:scale-105 transform transition-all duration-300 inline-block animate-bounce">
                         {{ hasCompleted ? 'Reintentar Evaluación (Admin)' : 'Iniciar Evaluación Final' }}
                     </Link>
