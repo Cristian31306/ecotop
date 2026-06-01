@@ -1,11 +1,14 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import { Head, Link } from '@inertiajs/vue3';
+import { Head, Link, usePage } from '@inertiajs/vue3';
 import { ref, computed } from 'vue';
 
 const props = defineProps({
     users: Array,
 });
+
+const page = usePage();
+const isAdmin = computed(() => page.props.auth?.user?.role === 'admin');
 
 const searchQuery = ref('');
 const expandedUserId = ref(null);
@@ -70,19 +73,29 @@ const getInitials = (name) => {
                     <p class="mt-1 text-sm text-gray-500">Mira el ranking general de exploradores y sus puntuaciones acumuladas.</p>
                 </div>
                 
-                <!-- Search input -->
-                <div class="relative w-full md:w-72">
-                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400">
-                        <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                <div class="flex items-center gap-3 w-full md:w-auto">
+                    <!-- Export button for admins -->
+                    <a v-if="isAdmin" href="/admin/export-podium" class="inline-flex items-center justify-center px-4 py-2 bg-emerald-600 border border-transparent rounded-full font-bold text-xs text-white uppercase tracking-widest hover:bg-emerald-700 focus:bg-emerald-700 active:bg-emerald-900 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 transition ease-in-out duration-150 whitespace-nowrap shadow-md">
+                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                         </svg>
+                        Descargar XLSX
+                    </a>
+
+                    <!-- Search input -->
+                    <div class="relative w-full md:w-72">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400">
+                            <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                            </svg>
+                        </div>
+                        <input 
+                            type="text" 
+                            v-model="searchQuery"
+                            placeholder="Buscar explorador..."
+                            class="pl-10 w-full border-gray-300 focus:border-emerald-500 focus:ring-emerald-500 rounded-full shadow-sm bg-white/70 backdrop-blur-sm transition-all"
+                        />
                     </div>
-                    <input 
-                        type="text" 
-                        v-model="searchQuery"
-                        placeholder="Buscar explorador..."
-                        class="pl-10 w-full border-gray-300 focus:border-emerald-500 focus:ring-emerald-500 rounded-full shadow-sm bg-white/70 backdrop-blur-sm transition-all"
-                    />
                 </div>
             </div>
 

@@ -73,9 +73,18 @@ class QuizController extends Controller
         // Sistema equilibrado de tiempo: 
         // Solo recibe bono si tuvo al menos 1 respuesta correcta.
         // Mientras menos tiempo (segundos), más bono. Máximo 60 de bono.
+        // NUEVA REGLA: Solo se otorga el bono de tiempo si el usuario realiza la prueba 
+        // en el mismo día que se habilitó el ecosistema (available_from).
         $timeBonus = 0;
         if ($correctAnswers > 0) {
-            $timeBonus = max(0, 60 - $time_elapsed);
+            $isSameDay = true;
+            if ($ecosystem->available_from) {
+                $isSameDay = now()->isSameDay($ecosystem->available_from);
+            }
+            
+            if ($isSameDay) {
+                $timeBonus = max(0, 60 - $time_elapsed);
+            }
         }
 
         $totalScore = $baseScore + $timeBonus;

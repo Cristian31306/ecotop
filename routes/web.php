@@ -36,6 +36,7 @@ Route::middleware('auth')->group(function () {
 Route::middleware(['auth', 'is_admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::resource('ecosystems', EcosystemController::class);
     Route::resource('questions', QuestionController::class);
+    Route::get('export-podium', [LeaderboardController::class, 'export'])->name('export.podium');
 });
 
 require __DIR__.'/auth.php';

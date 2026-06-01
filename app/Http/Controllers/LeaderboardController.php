@@ -7,6 +7,7 @@ use App\Models\UserScore;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
+use Rap2hpoutre\FastExcel\FastExcel;
 
 class LeaderboardController extends Controller
 {
@@ -41,5 +42,35 @@ class LeaderboardController extends Controller
             ->get();
 
         return response()->json($topUsers);
+    }
+
+    public function export()
+    {
+        $ecosystems = \App\Models\Ecosystem::orderBy('day_number')->get();
+        
+        $users = User::select('users.id', 'users.name', 'users.email', DB::raw('COALESCE(SUM(user_scores.score), 0) as total_score'))
+            ->leftJoin('user_scores', 'users.id', '=', 'user_scores.user_id')
+            ->where('users.role', '!=', 'admin')
+            ->groupBy('users.id', 'users.name', 'users.email')
+            ->orderByDesc('total_score')
+            ->orderBy('users.name')
+            ->with(['scores.ecosystem'])
+            ->get();
+
+        return (new FastExcel($users))->download('podio.xlsx', function ($user) use ($ecosystems) {
+            $row = [
+                'Nombre' => $user->name,
+                'Correo' => $user->email,
+            ];
+            
+            foreach ($ecosystems as $ecosystem) {
+                $score = $user->scores->firstWhere('ecosystem_id', $ecosystem->id);
+                $row['Día ' . $ecosystem->day_number . ' - ' . $ecosystem->title] = $score ? $score->score : 0;
+            }
+            
+            $row['Puntaje Total'] = $user->total_score;
+            
+            return $row;
+        });
     }
 }
