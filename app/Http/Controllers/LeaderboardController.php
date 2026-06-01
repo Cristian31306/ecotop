@@ -33,8 +33,9 @@ class LeaderboardController extends Controller
         $topUsers = UserScore::select('user_scores.user_id', DB::raw('SUM(user_scores.score) as total_score'))
             ->join('users', 'user_scores.user_id', '=', 'users.id')
             ->where('users.role', '!=', 'admin')
-            ->groupBy('user_scores.user_id')
+            ->groupBy('user_scores.user_id', 'users.name')
             ->orderByDesc('total_score')
+            ->orderBy('users.name')
             ->with('user:id,name') // Carga la relación con el nombre
             ->take(10)
             ->get();
