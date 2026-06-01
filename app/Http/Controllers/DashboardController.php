@@ -81,6 +81,7 @@ class DashboardController extends Controller
             'ecosystem' => $ecosystem,
             'hasCompleted' => $hasCompleted,
             'score' => $userScores[$ecosystem->id] ?? null,
+            'canRetry' => $isAdmin,
         ]);
     }
 }

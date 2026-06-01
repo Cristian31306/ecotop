@@ -7,6 +7,7 @@ const props = defineProps({
     ecosystem: Object,
     hasCompleted: Boolean,
     score: Number,
+    canRetry: Boolean,
 });
 
 // El contenido ahora viene como Array JSON gracias al backend
@@ -134,8 +135,8 @@ const prevSlide = () => {
             <transition name="fade">
                 <div v-if="currentSlide === contentCards.length - 1 || hasCompleted" class="text-center bg-white/40 backdrop-blur-md rounded-3xl p-8 lg:p-12 border border-white shadow-xl max-w-2xl mx-auto mt-8">
                     <h3 class="text-2xl font-bold text-gray-800 mb-6">{{ hasCompleted ? 'Lección Completada' : '¡Has terminado la lectura!' }}</h3>
-                    <Link v-if="!hasCompleted" :href="route('quiz.show', ecosystem.id)" class="btn-primary text-xl px-10 py-5 w-full sm:w-auto shadow-emerald-500/30 hover:shadow-emerald-500/50 hover:scale-105 transform transition-all duration-300 inline-block animate-bounce">
-                        Iniciar Evaluación Final
+                    <Link v-if="!hasCompleted || canRetry" :href="route('quiz.show', ecosystem.id)" class="btn-primary text-xl px-10 py-5 w-full sm:w-auto shadow-emerald-500/30 hover:shadow-emerald-500/50 hover:scale-105 transform transition-all duration-300 inline-block animate-bounce">
+                        {{ hasCompleted ? 'Reintentar Evaluación (Admin)' : 'Iniciar Evaluación Final' }}
                     </Link>
                     <p v-else class="text-emerald-700 font-semibold bg-emerald-50 py-3 px-6 rounded-full inline-block border border-emerald-100">
                         <svg class="w-5 h-5 inline-block mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
