@@ -15,7 +15,7 @@ class LeaderboardController extends Controller
     {
         $users = User::select('users.id', 'users.name', 'users.email', DB::raw('COALESCE(SUM(user_scores.score), 0) as total_score'))
             ->leftJoin('user_scores', 'users.id', '=', 'user_scores.user_id')
-            ->where('users.role', '!=', 'admin')
+            ->whereNotIn('users.role', ['admin', 'tester'])
             ->groupBy('users.id', 'users.name', 'users.email')
             ->orderByDesc('total_score')
             ->orderBy('users.name')
@@ -33,7 +33,7 @@ class LeaderboardController extends Controller
     {
         $topUsers = UserScore::select('user_scores.user_id', DB::raw('SUM(user_scores.score) as total_score'))
             ->join('users', 'user_scores.user_id', '=', 'users.id')
-            ->where('users.role', '!=', 'admin')
+            ->whereNotIn('users.role', ['admin', 'tester'])
             ->groupBy('user_scores.user_id', 'users.name')
             ->orderByDesc('total_score')
             ->orderBy('users.name')
@@ -50,7 +50,7 @@ class LeaderboardController extends Controller
         
         $users = User::select('users.id', 'users.name', 'users.email', DB::raw('COALESCE(SUM(user_scores.score), 0) as total_score'))
             ->leftJoin('user_scores', 'users.id', '=', 'user_scores.user_id')
-            ->where('users.role', '!=', 'admin')
+            ->whereNotIn('users.role', ['admin', 'tester'])
             ->groupBy('users.id', 'users.name', 'users.email')
             ->orderByDesc('total_score')
             ->orderBy('users.name')
