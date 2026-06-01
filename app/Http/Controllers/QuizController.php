@@ -13,14 +13,16 @@ class QuizController extends Controller
     {
         $user = $request->user();
 
-        // Verificar si ya tiene score (bloquear reintentos)
-        $existingScore = UserScore::where('user_id', $user->id)
-                                  ->where('ecosystem_id', $ecosystem->id)
-                                  ->first();
+        // Verificar si ya tiene score (bloquear reintentos) - Omitir si es admin
+        if ($user->role !== 'admin') {
+            $existingScore = UserScore::where('user_id', $user->id)
+                                      ->where('ecosystem_id', $ecosystem->id)
+                                      ->first();
 
-        if ($existingScore) {
-            return redirect()->route('ecosystem.show', $ecosystem->id)
-                             ->with('error', 'Ya has completado este quiz.');
+            if ($existingScore) {
+                return redirect()->route('ecosystem.show', $ecosystem->id)
+                                 ->with('error', 'Ya has completado este quiz.');
+            }
         }
 
         // Obtener preguntas (sin la respuesta correcta) y mezclar opciones
@@ -47,9 +49,11 @@ class QuizController extends Controller
     {
         $user = $request->user();
 
-        // Verificar intento
-        if (UserScore::where('user_id', $user->id)->where('ecosystem_id', $ecosystem->id)->exists()) {
-            return response()->json(['error' => 'Ya has completado este quiz.'], 403);
+        // Verificar intento - Omitir si es admin
+        if ($user->role !== 'admin') {
+            if (UserScore::where('user_id', $user->id)->where('ecosystem_id', $ecosystem->id)->exists()) {
+                return response()->json(['error' => 'Ya has completado este quiz.'], 403);
+            }
         }
 
         $answers = $request->input('answers', []);
@@ -76,11 +80,15 @@ class QuizController extends Controller
 
         $totalScore = $baseScore + $timeBonus;
 
-        UserScore::create([
-            'user_id' => $user->id,
-            'ecosystem_id' => $ecosystem->id,
-            'score' => $totalScore,
-        ]);
+        UserScore::updateOrCreate(
+            [
+                'user_id' => $user->id,
+                'ecosystem_id' => $ecosystem->id,
+            ],
+            [
+                'score' => $totalScore,
+            ]
+        );
 
         return redirect()->route('dashboard');
     }
