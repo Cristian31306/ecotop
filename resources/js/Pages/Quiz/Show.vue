@@ -1,7 +1,7 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head, useForm } from '@inertiajs/vue3';
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, onUnmounted } from 'vue';
 import confetti from 'canvas-confetti';
 
 const props = defineProps({
@@ -16,8 +16,32 @@ const form = useForm({
 
 let startTime = 0;
 
+const preventDefault = (e) => {
+    e.preventDefault();
+};
+
+const handleKeyDown = (e) => {
+    // Bloquear Ctrl+C, Ctrl+V, Ctrl+U (Ver código fuente), Ctrl+Shift+I (Consola) y F12
+    if (
+        (e.ctrlKey && ['c', 'v', 'u'].includes(e.key.toLowerCase())) ||
+        (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'i') ||
+        e.key === 'F12'
+    ) {
+        e.preventDefault();
+    }
+};
+
 onMounted(() => {
     startTime = Date.now();
+    
+    // Bloquear clic derecho y teclado para evitar copiar
+    document.addEventListener('contextmenu', preventDefault);
+    document.addEventListener('keydown', handleKeyDown);
+});
+
+onUnmounted(() => {
+    document.removeEventListener('contextmenu', preventDefault);
+    document.removeEventListener('keydown', handleKeyDown);
 });
 
 const triggerConfetti = () => {
@@ -63,7 +87,7 @@ const submitQuiz = () => {
     <Head :title="'Quiz: ' + ecosystem.title" />
 
     <AuthenticatedLayout>
-        <div class="py-6 lg:py-12 max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="py-6 lg:py-12 max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 select-none">
             <div class="glass-card mb-6 lg:mb-8 text-center bg-gradient-to-br from-emerald-600 to-teal-500 border-none shadow-xl text-white p-6 lg:p-8 transform hover:scale-105 transition-transform duration-500">
                 <h1 class="text-2xl lg:text-3xl font-bold mb-2">Evaluación: {{ ecosystem.title }}</h1>
                 <p class="text-sm lg:text-base text-emerald-100">Responde correctamente para sumar puntos a tu ranking. ¡El tiempo corre!</p>
