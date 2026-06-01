@@ -1,0 +1,268 @@
+=============================================================
+     ECOTOP - INFORME AUDITORIA DE CUENTAS RECREADAS         
+=============================================================
+Fecha de ejecucion: 2026-06-01 12:29:36
+
+=== USUARIOS ACTIVOS QUE SE HAN RECREADO (MISMO CORREO EN BD BINARIO) ===
+Nota: Si un correo aparece mas de 2 o 3 veces, es probable que haya sido borrado y recreado multiples veces.
+
+- Usuario: Cristian
+  Email: durancristian31306@gmail.com (ID Actual: 3)
+  Creado el: 2026-05-30 15:01:28
+  Puntajes actuales: Eco 1: 139 pts (2026-05-30 23:49:37)
+  Ocurrencias en BD Binario: 2
+  Sospechoso de Recreacion: MEDIO (Tiene sesion/cache activa o se registro 2 veces)
+-------------------------------------------------------------
+- Usuario: Sergio Ivan Tarazona Gaona
+  Email: ssergiopersonal@gmail.com (ID Actual: 4)
+  Creado el: 2026-06-01 08:22:45
+  Puntajes actuales: Eco 1: 112 pts (2026-06-01 08:27:09)
+  Ocurrencias en BD Binario: 2
+  Sospechoso de Recreacion: MEDIO (Tiene sesion/cache activa o se registro 2 veces)
+-------------------------------------------------------------
+- Usuario: Analyd Julyana Sanchez Diaz
+  Email: ing.analydjulyanasd@gmail.com (ID Actual: 5)
+  Creado el: 2026-06-01 08:24:08
+  Puntajes actuales: Eco 1: 132 pts (2026-06-01 08:26:15)
+  Ocurrencias en BD Binario: 2
+  Sospechoso de Recreacion: MEDIO (Tiene sesion/cache activa o se registro 2 veces)
+-------------------------------------------------------------
+- Usuario: MIGUEL CARRILLO GONZALEZ
+  Email: miguelscg01@gmail.com (ID Actual: 6)
+  Creado el: 2026-06-01 09:18:55
+  Puntajes actuales: Eco 1: 140 pts (2026-06-01 09:23:12)
+  Ocurrencias en BD Binario: 2
+  Sospechoso de Recreacion: MEDIO (Tiene sesion/cache activa o se registro 2 veces)
+-------------------------------------------------------------
+- Usuario: Natalia
+  Email: nataliabapa@ufps.edu.co (ID Actual: 7)
+  Creado el: 2026-06-01 09:22:15
+  Puntajes actuales: Eco 1: 100 pts (2026-06-01 09:24:58)
+  Ocurrencias en BD Binario: 2
+  Sospechoso de Recreacion: MEDIO (Tiene sesion/cache activa o se registro 2 veces)
+-------------------------------------------------------------
+- Usuario: Pedro
+  Email: arquitecto.pedrovilla@gmail.com (ID Actual: 8)
+  Creado el: 2026-06-01 09:22:20
+  Puntajes actuales: Eco 1: 106 pts (2026-06-01 09:27:19)
+  Ocurrencias en BD Binario: 2
+  Sospechoso de Recreacion: MEDIO (Tiene sesion/cache activa o se registro 2 veces)
+-------------------------------------------------------------
+- Usuario: Andrea Bacca
+  Email: johabacca@gmail.com (ID Actual: 10)
+  Creado el: 2026-06-01 09:22:29
+  Puntajes actuales: Eco 1: 141 pts (2026-06-01 09:30:20)
+  Ocurrencias en BD Binario: 2
+  Sospechoso de Recreacion: MEDIO (Tiene sesion/cache activa o se registro 2 veces)
+-------------------------------------------------------------
+- Usuario: dylan moreno
+  Email: dylan.pipe@gmail.com (ID Actual: 11)
+  Creado el: 2026-06-01 09:22:34
+  Puntajes actuales: Eco 1: 152 pts (2026-06-01 09:31:13)
+  Ocurrencias en BD Binario: 2
+  Sospechoso de Recreacion: MEDIO (Tiene sesion/cache activa o se registro 2 veces)
+-------------------------------------------------------------
+- Usuario: Oscar Andres Sequeda Villamizar
+  Email: arquitectooscar12@gmail.com (ID Actual: 13)
+  Creado el: 2026-06-01 09:23:17
+  Puntajes actuales: Sin puntajes
+  Ocurrencias en BD Binario: 2
+  Sospechoso de Recreacion: MEDIO (Tiene sesion/cache activa o se registro 2 veces)
+-------------------------------------------------------------
+- Usuario: andres sandoval
+  Email: andressandoval8911@gmail.com (ID Actual: 14)
+  Creado el: 2026-06-01 09:24:03
+  Puntajes actuales: Eco 1: 100 pts (2026-06-01 09:29:55)
+  Ocurrencias en BD Binario: 2
+  Sospechoso de Recreacion: MEDIO (Tiene sesion/cache activa o se registro 2 veces)
+-------------------------------------------------------------
+- Usuario: Rocio Rodriguez
+  Email: edroro_72@hotmail.com (ID Actual: 16)
+  Creado el: 2026-06-01 09:28:06
+  Puntajes actuales: Sin puntajes
+  Ocurrencias en BD Binario: 2
+  Sospechoso de Recreacion: MEDIO (Tiene sesion/cache activa o se registro 2 veces)
+-------------------------------------------------------------
+- Usuario: Mária Trujillo
+  Email: mariamonicatr19@gmail.com (ID Actual: 17)
+  Creado el: 2026-06-01 09:29:51
+  Puntajes actuales: Eco 1: 137 pts (2026-06-01 09:35:38)
+  Ocurrencias en BD Binario: 2
+  Sospechoso de Recreacion: MEDIO (Tiene sesion/cache activa o se registro 2 veces)
+-------------------------------------------------------------
+- Usuario: Angie Galvis
+  Email: aviana_11@hotmail.com (ID Actual: 18)
+  Creado el: 2026-06-01 09:29:57
+  Puntajes actuales: Eco 1: 100 pts (2026-06-01 09:55:58)
+  Ocurrencias en BD Binario: 2
+  Sospechoso de Recreacion: MEDIO (Tiene sesion/cache activa o se registro 2 veces)
+-------------------------------------------------------------
+- Usuario: María Fernnada Alvarez
+  Email: mfalvarez296@gmail.com (ID Actual: 19)
+  Creado el: 2026-06-01 09:30:08
+  Puntajes actuales: Eco 1: 132 pts (2026-06-01 09:40:12)
+  Ocurrencias en BD Binario: 2
+  Sospechoso de Recreacion: MEDIO (Tiene sesion/cache activa o se registro 2 veces)
+-------------------------------------------------------------
+- Usuario: TATIANA TOLOZA
+  Email: tolozagarciatatiana@gmail.com (ID Actual: 20)
+  Creado el: 2026-06-01 09:30:39
+  Puntajes actuales: Eco 1: 100 pts (2026-06-01 09:42:47)
+  Ocurrencias en BD Binario: 2
+  Sospechoso de Recreacion: MEDIO (Tiene sesion/cache activa o se registro 2 veces)
+-------------------------------------------------------------
+- Usuario: JONH FLOREZ
+  Email: asesoriassasas22@gmail.com (ID Actual: 21)
+  Creado el: 2026-06-01 09:30:46
+  Puntajes actuales: Eco 1: 140 pts (2026-06-01 09:52:08)
+  Ocurrencias en BD Binario: 2
+  Sospechoso de Recreacion: MEDIO (Tiene sesion/cache activa o se registro 2 veces)
+-------------------------------------------------------------
+- Usuario: Cinthia Barros
+  Email: cinthiamarcela2509@hotmail.com (ID Actual: 22)
+  Creado el: 2026-06-01 09:31:21
+  Puntajes actuales: Eco 1: 100 pts (2026-06-01 09:34:39)
+  Ocurrencias en BD Binario: 6
+  Sospechoso de Recreacion: ALTO (Se registro 3+ veces)
+-------------------------------------------------------------
+- Usuario: Santiago Moreno Castrillon
+  Email: smorenoc@ufpso.edu.co (ID Actual: 23)
+  Creado el: 2026-06-01 09:31:57
+  Puntajes actuales: Eco 1: 100 pts (2026-06-01 09:37:41)
+  Ocurrencias en BD Binario: 2
+  Sospechoso de Recreacion: MEDIO (Tiene sesion/cache activa o se registro 2 veces)
+-------------------------------------------------------------
+- Usuario: Karol Q Gonzalez
+  Email: qgkavi2001@gmail.com (ID Actual: 24)
+  Creado el: 2026-06-01 09:32:31
+  Puntajes actuales: Eco 1: 130 pts (2026-06-01 09:38:38)
+  Ocurrencias en BD Binario: 2
+  Sospechoso de Recreacion: MEDIO (Tiene sesion/cache activa o se registro 2 veces)
+-------------------------------------------------------------
+- Usuario: DIEGO ANDRES PARRA BALLEN
+  Email: diegoparra40@hotmail.com (ID Actual: 25)
+  Creado el: 2026-06-01 09:38:01
+  Puntajes actuales: Eco 1: 139 pts (2026-06-01 09:41:49)
+  Ocurrencias en BD Binario: 2
+  Sospechoso de Recreacion: MEDIO (Tiene sesion/cache activa o se registro 2 veces)
+-------------------------------------------------------------
+- Usuario: LIDIA SHIRLEY PARRA GARCIA
+  Email: lidiashirley3@gmail.com (ID Actual: 26)
+  Creado el: 2026-06-01 09:41:43
+  Puntajes actuales: Eco 1: 141 pts (2026-06-01 09:42:34)
+  Ocurrencias en BD Binario: 2
+  Sospechoso de Recreacion: MEDIO (Tiene sesion/cache activa o se registro 2 veces)
+-------------------------------------------------------------
+- Usuario: YEISON ARLEY GOMEZ ALVARADO
+  Email: yeisongomez_21@hotmail.com (ID Actual: 29)
+  Creado el: 2026-06-01 09:51:09
+  Puntajes actuales: Eco 1: 100 pts (2026-06-01 10:03:51)
+  Ocurrencias en BD Binario: 2
+  Sospechoso de Recreacion: MEDIO (Tiene sesion/cache activa o se registro 2 veces)
+-------------------------------------------------------------
+- Usuario: Paula Oviedo
+  Email: paulaoviedo2000@gmail.com (ID Actual: 30)
+  Creado el: 2026-06-01 09:53:00
+  Puntajes actuales: Eco 1: 149 pts (2026-06-01 09:53:37)
+  Ocurrencias en BD Binario: 2
+  Sospechoso de Recreacion: MEDIO (Tiene sesion/cache activa o se registro 2 veces)
+-------------------------------------------------------------
+- Usuario: Salome Vanegas
+  Email: salomevanegas27@gmail.com (ID Actual: 31)
+  Creado el: 2026-06-01 09:54:47
+  Puntajes actuales: Eco 1: 143 pts (2026-06-01 09:55:28)
+  Ocurrencias en BD Binario: 2
+  Sospechoso de Recreacion: MEDIO (Tiene sesion/cache activa o se registro 2 veces)
+-------------------------------------------------------------
+- Usuario: JACK ELAM
+  Email: jaraelgo@gmail.com (ID Actual: 32)
+  Creado el: 2026-06-01 10:02:02
+  Puntajes actuales: Eco 1: 100 pts (2026-06-01 10:17:02)
+  Ocurrencias en BD Binario: 2
+  Sospechoso de Recreacion: MEDIO (Tiene sesion/cache activa o se registro 2 veces)
+-------------------------------------------------------------
+- Usuario: Sebastian Eugenio
+  Email: sebastian123@ecotop.com (ID Actual: 33)
+  Creado el: 2026-06-01 10:11:30
+  Puntajes actuales: Eco 1: 142 pts (2026-06-01 10:14:22)
+  Ocurrencias en BD Binario: 2
+  Sospechoso de Recreacion: MEDIO (Tiene sesion/cache activa o se registro 2 veces)
+-------------------------------------------------------------
+- Usuario: miguel angel puentes ramon
+  Email: angel13114@hotmail.com (ID Actual: 34)
+  Creado el: 2026-06-01 10:16:10
+  Puntajes actuales: Eco 1: 100 pts (2026-06-01 10:20:02)
+  Ocurrencias en BD Binario: 2
+  Sospechoso de Recreacion: MEDIO (Tiene sesion/cache activa o se registro 2 veces)
+-------------------------------------------------------------
+- Usuario: Camila Alejandra Santander Parra
+  Email: csantander2610@gmail.com (ID Actual: 35)
+  Creado el: 2026-06-01 10:32:08
+  Puntajes actuales: Eco 1: 80 pts (2026-06-01 10:58:39)
+  Ocurrencias en BD Binario: 2
+  Sospechoso de Recreacion: MEDIO (Tiene sesion/cache activa o se registro 2 veces)
+-------------------------------------------------------------
+- Usuario: daniel tolosa
+  Email: danieltolosa.1007@gmail.com (ID Actual: 37)
+  Creado el: 2026-06-01 11:48:27
+  Puntajes actuales: Eco 1: 152 pts (2026-06-01 11:49:00)
+  Ocurrencias en BD Binario: 2
+  Sospechoso de Recreacion: MEDIO (Tiene sesion/cache activa o se registro 2 veces)
+-------------------------------------------------------------
+- Usuario: Rafael Alejandro Alvarez
+  Email: raaf452@gmail.com (ID Actual: 38)
+  Creado el: 2026-06-01 11:51:21
+  Puntajes actuales: Eco 1: 151 pts (2026-06-01 11:52:05)
+  Ocurrencias en BD Binario: 2
+  Sospechoso de Recreacion: MEDIO (Tiene sesion/cache activa o se registro 2 veces)
+-------------------------------------------------------------
+- Usuario: Maria Paz
+  Email: 1096mpgr@gmail.com (ID Actual: 39)
+  Creado el: 2026-06-01 11:52:53
+  Puntajes actuales: Eco 1: 152 pts (2026-06-01 11:53:39)
+  Ocurrencias en BD Binario: 6
+  Sospechoso de Recreacion: ALTO (Se registro 3+ veces)
+-------------------------------------------------------------
+- Usuario: Alejandro Navarro
+  Email: test0000@gmail.com (ID Actual: 40)
+  Creado el: 2026-06-01 11:57:35
+  Puntajes actuales: Eco 1: 111 pts (2026-06-01 11:59:43)
+  Ocurrencias en BD Binario: 2
+  Sospechoso de Recreacion: MEDIO (Tiene sesion/cache activa o se registro 2 veces)
+-------------------------------------------------------------
+
+=== CUENTAS QUE FUERON ELIMINADAS Y NO SE VOLVIERON A CREAR ===
+No se detectaron otras cuentas borradas.
+
+=== DETALLE DE PUNTAJES REGISTRADOS ACTUALMENTE (USER_SCORES) ===
+- Score ID: 1 | User ID: 3 | Usuario: Cristian (durancristian31306@gmail.com) | Eco: 1 | Puntaje: 139 | Fecha: 2026-05-30 23:49:37
+- Score ID: 2 | User ID: 5 | Usuario: Analyd Julyana Sanchez Diaz (ing.analydjulyanasd@gmail.com) | Eco: 1 | Puntaje: 132 | Fecha: 2026-06-01 08:26:15
+- Score ID: 3 | User ID: 4 | Usuario: Sergio Ivan Tarazona Gaona (ssergiopersonal@gmail.com) | Eco: 1 | Puntaje: 112 | Fecha: 2026-06-01 08:27:09
+- Score ID: 4 | User ID: 6 | Usuario: MIGUEL CARRILLO GONZALEZ (miguelscg01@gmail.com) | Eco: 1 | Puntaje: 140 | Fecha: 2026-06-01 09:23:12
+- Score ID: 5 | User ID: 7 | Usuario: Natalia (nataliabapa@ufps.edu.co) | Eco: 1 | Puntaje: 100 | Fecha: 2026-06-01 09:24:58
+- Score ID: 6 | User ID: 8 | Usuario: Pedro (arquitecto.pedrovilla@gmail.com) | Eco: 1 | Puntaje: 106 | Fecha: 2026-06-01 09:27:19
+- Score ID: 9 | User ID: 14 | Usuario: andres sandoval (andressandoval8911@gmail.com) | Eco: 1 | Puntaje: 100 | Fecha: 2026-06-01 09:29:55
+- Score ID: 10 | User ID: 10 | Usuario: Andrea Bacca (johabacca@gmail.com) | Eco: 1 | Puntaje: 141 | Fecha: 2026-06-01 09:30:20
+- Score ID: 11 | User ID: 11 | Usuario: dylan moreno (dylan.pipe@gmail.com) | Eco: 1 | Puntaje: 152 | Fecha: 2026-06-01 09:31:13
+- Score ID: 13 | User ID: 22 | Usuario: Cinthia Barros (cinthiamarcela2509@hotmail.com) | Eco: 1 | Puntaje: 100 | Fecha: 2026-06-01 09:34:39
+- Score ID: 14 | User ID: 17 | Usuario: Mária Trujillo (mariamonicatr19@gmail.com) | Eco: 1 | Puntaje: 137 | Fecha: 2026-06-01 09:35:38
+- Score ID: 15 | User ID: 23 | Usuario: Santiago Moreno Castrillon (smorenoc@ufpso.edu.co) | Eco: 1 | Puntaje: 100 | Fecha: 2026-06-01 09:37:41
+- Score ID: 16 | User ID: 24 | Usuario: Karol Q Gonzalez (qgkavi2001@gmail.com) | Eco: 1 | Puntaje: 130 | Fecha: 2026-06-01 09:38:38
+- Score ID: 17 | User ID: 19 | Usuario: María Fernnada Alvarez (mfalvarez296@gmail.com) | Eco: 1 | Puntaje: 132 | Fecha: 2026-06-01 09:40:12
+- Score ID: 18 | User ID: 25 | Usuario: DIEGO ANDRES PARRA BALLEN (diegoparra40@hotmail.com) | Eco: 1 | Puntaje: 139 | Fecha: 2026-06-01 09:41:49
+- Score ID: 19 | User ID: 26 | Usuario: LIDIA SHIRLEY PARRA GARCIA (lidiashirley3@gmail.com) | Eco: 1 | Puntaje: 141 | Fecha: 2026-06-01 09:42:34
+- Score ID: 20 | User ID: 20 | Usuario: TATIANA TOLOZA (tolozagarciatatiana@gmail.com) | Eco: 1 | Puntaje: 100 | Fecha: 2026-06-01 09:42:47
+- Score ID: 23 | User ID: 21 | Usuario: JONH FLOREZ (asesoriassasas22@gmail.com) | Eco: 1 | Puntaje: 140 | Fecha: 2026-06-01 09:52:08
+- Score ID: 24 | User ID: 30 | Usuario: Paula Oviedo (paulaoviedo2000@gmail.com) | Eco: 1 | Puntaje: 149 | Fecha: 2026-06-01 09:53:37
+- Score ID: 25 | User ID: 31 | Usuario: Salome Vanegas (salomevanegas27@gmail.com) | Eco: 1 | Puntaje: 143 | Fecha: 2026-06-01 09:55:28
+- Score ID: 26 | User ID: 18 | Usuario: Angie Galvis (aviana_11@hotmail.com) | Eco: 1 | Puntaje: 100 | Fecha: 2026-06-01 09:55:58
+- Score ID: 27 | User ID: 29 | Usuario: YEISON ARLEY GOMEZ ALVARADO (yeisongomez_21@hotmail.com) | Eco: 1 | Puntaje: 100 | Fecha: 2026-06-01 10:03:51
+- Score ID: 28 | User ID: 33 | Usuario: Sebastian Eugenio (sebastian123@ecotop.com) | Eco: 1 | Puntaje: 142 | Fecha: 2026-06-01 10:14:22
+- Score ID: 29 | User ID: 32 | Usuario: JACK ELAM (jaraelgo@gmail.com) | Eco: 1 | Puntaje: 100 | Fecha: 2026-06-01 10:17:02
+- Score ID: 30 | User ID: 34 | Usuario: miguel angel puentes ramon (angel13114@hotmail.com) | Eco: 1 | Puntaje: 100 | Fecha: 2026-06-01 10:20:02
+- Score ID: 31 | User ID: 35 | Usuario: Camila Alejandra Santander Parra (csantander2610@gmail.com) | Eco: 1 | Puntaje: 80 | Fecha: 2026-06-01 10:58:39
+- Score ID: 33 | User ID: 37 | Usuario: daniel tolosa (danieltolosa.1007@gmail.com) | Eco: 1 | Puntaje: 152 | Fecha: 2026-06-01 11:49:00
+- Score ID: 34 | User ID: 38 | Usuario: Rafael Alejandro Alvarez (raaf452@gmail.com) | Eco: 1 | Puntaje: 151 | Fecha: 2026-06-01 11:52:05
+- Score ID: 35 | User ID: 39 | Usuario: Maria Paz (1096mpgr@gmail.com) | Eco: 1 | Puntaje: 152 | Fecha: 2026-06-01 11:53:39
+- Score ID: 36 | User ID: 40 | Usuario: Alejandro Navarro (test0000@gmail.com) | Eco: 1 | Puntaje: 111 | Fecha: 2026-06-01 11:59:43
+
