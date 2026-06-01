@@ -29,10 +29,19 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request): array
     {
+        $user = $request->user();
+        $feedback = $user ? \App\Models\Feedback::where('user_id', $user->id)->first() : null;
+
         return [
             ...parent::share($request),
             'auth' => [
-                'user' => $request->user(),
+                'user' => $user,
+                'has_rated' => (bool)$feedback,
+                'can_rate' => $user ? \App\Models\UserScore::where('user_id', $user->id)->exists() : false,
+                'feedback' => $feedback ? [
+                    'rating' => $feedback->rating,
+                    'comment' => $feedback->comment,
+                ] : null,
             ],
         ];
     }

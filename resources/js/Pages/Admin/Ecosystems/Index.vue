@@ -44,9 +44,13 @@ defineProps({
                 </table>
             </div>
             
-            <div class="mt-8">
+            <div class="mt-8 flex flex-col sm:flex-row sm:items-center gap-4">
                 <Link :href="route('admin.questions.index')" class="text-emerald-600 hover:underline font-medium">
                     &rarr; Administrar Preguntas
+                </Link>
+                <span class="hidden sm:inline text-gray-300">|</span>
+                <Link :href="route('admin.feedback.index')" class="text-emerald-600 hover:underline font-medium">
+                    &rarr; Ver Comentarios y Calificaciones
                 </Link>
             </div>
         </div>

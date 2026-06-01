@@ -1,14 +1,33 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 import ApplicationLogo from '@/Components/ApplicationLogo.vue';
 import Dropdown from '@/Components/Dropdown.vue';
 import DropdownLink from '@/Components/DropdownLink.vue';
 import NavLink from '@/Components/NavLink.vue';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
 import { Link, usePage } from '@inertiajs/vue3';
+import FeedbackModal from '@/Components/FeedbackModal.vue';
 
 const showingNavigationDropdown = ref(false);
+const showingFeedbackModal = ref(false);
 const user = usePage().props.auth.user;
+
+onMounted(() => {
+    const userProps = usePage().props.auth;
+    // Si tiene autorización para calificar y no ha calificado aún
+    if (userProps.can_rate && !userProps.has_rated) {
+        // Solo mostrar automáticamente en la página del dashboard principal
+        const currentRoute = route().current();
+        if (currentRoute === 'dashboard') {
+            const dismissedAt = localStorage.getItem('feedback_dismissed_at');
+            const cooldownMs = 29 * 60 * 60 * 1000; // Cooldown exacto de 29 horas
+            
+            if (!dismissedAt || (Date.now() - parseInt(dismissedAt, 10)) > cooldownMs) {
+                showingFeedbackModal.value = true;
+            }
+        }
+    }
+});
 </script>
 
 <template>
@@ -35,8 +54,11 @@ const user = usePage().props.auth.user;
                                 <NavLink :href="route('leaderboard')" :active="route().current('leaderboard')">
                                     Podio Global
                                 </NavLink>
-                                <NavLink v-if="user.role === 'admin'" :href="route('admin.ecosystems.index')" :active="route().current('admin.*')">
+                                <NavLink v-if="user.role === 'admin'" :href="route('admin.ecosystems.index')" :active="route().current('admin.ecosystems.*') || route().current('admin.questions.*')">
                                     Administración
+                                </NavLink>
+                                <NavLink v-if="user.role === 'admin'" :href="route('admin.feedback.index')" :active="route().current('admin.feedback.index')">
+                                    Comentarios
                                 </NavLink>
                             </div>
                         </div>
@@ -62,6 +84,13 @@ const user = usePage().props.auth.user;
                                     <template #content>
                                         <div class="p-1">
                                             <DropdownLink :href="route('profile.edit')" class="rounded-md hover:bg-emerald-50 hover:text-emerald-700"> Profile </DropdownLink>
+                                            <button
+                                                v-if="$page.props.auth.can_rate"
+                                                @click="showingFeedbackModal = true"
+                                                class="block w-full px-4 py-2 text-left text-sm leading-5 text-emerald-800 hover:bg-emerald-50 hover:text-emerald-700 transition duration-150 ease-in-out rounded-md font-semibold"
+                                            >
+                                                {{ $page.props.auth.has_rated ? '⭐ Editar Calificación' : '⭐ Calificar Aplicación' }}
+                                            </button>
                                             <DropdownLink :href="route('logout')" method="post" as="button" class="rounded-md hover:bg-red-50 hover:text-red-700">
                                                 Log Out
                                             </DropdownLink>
@@ -95,8 +124,11 @@ const user = usePage().props.auth.user;
                         <ResponsiveNavLink :href="route('leaderboard')" :active="route().current('leaderboard')">
                             Podio Global
                         </ResponsiveNavLink>
-                        <ResponsiveNavLink v-if="user.role === 'admin'" :href="route('admin.ecosystems.index')" :active="route().current('admin.*')">
+                        <ResponsiveNavLink v-if="user.role === 'admin'" :href="route('admin.ecosystems.index')" :active="route().current('admin.ecosystems.*') || route().current('admin.questions.*')">
                             Administración
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink v-if="user.role === 'admin'" :href="route('admin.feedback.index')" :active="route().current('admin.feedback.index')">
+                            Comentarios y Calificaciones
                         </ResponsiveNavLink>
                     </div>
 
@@ -109,6 +141,13 @@ const user = usePage().props.auth.user;
 
                         <div class="mt-3 space-y-1">
                             <ResponsiveNavLink :href="route('profile.edit')"> Profile </ResponsiveNavLink>
+                            <button
+                                v-if="$page.props.auth.can_rate"
+                                @click="showingFeedbackModal = true"
+                                class="block w-full pl-3 pr-4 py-2 border-l-4 border-transparent text-left text-base font-semibold text-emerald-800 hover:text-emerald-700 hover:bg-emerald-50 hover:border-emerald-300 focus:outline-none transition duration-150 ease-in-out"
+                            >
+                                {{ $page.props.auth.has_rated ? '⭐ Editar Calificación' : '⭐ Calificar Aplicación' }}
+                            </button>
                             <ResponsiveNavLink :href="route('logout')" method="post" as="button">
                                 Log Out
                             </ResponsiveNavLink>
@@ -126,6 +165,9 @@ const user = usePage().props.auth.user;
             <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
                 <slot />
             </main>
+            
+            <!-- Feedback Modal Component -->
+            <FeedbackModal :isOpen="showingFeedbackModal" @close="showingFeedbackModal = false" />
         </div>
     </div>
 </template>
