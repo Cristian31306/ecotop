@@ -1,6 +1,5 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import DeleteUserForm from './Partials/DeleteUserForm.vue';
 import UpdatePasswordForm from './Partials/UpdatePasswordForm.vue';
 import UpdateProfileInformationForm from './Partials/UpdateProfileInformationForm.vue';
 import { Head } from '@inertiajs/vue3';
@@ -41,10 +40,6 @@ defineProps({
                     <UpdatePasswordForm class="max-w-2xl" />
                 </div>
 
-                <!-- Eliminar Cuenta -->
-                <div class="glass bg-white/75 p-6 sm:p-10 rounded-3xl border border-white/60 shadow-lg">
-                    <DeleteUserForm class="max-w-2xl" />
-                </div>
             </div>
         </div>
     </AuthenticatedLayout>
