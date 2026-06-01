@@ -87,7 +87,26 @@ class QuizController extends Controller
             }
         }
 
-        $totalScore = $baseScore + $timeBonus;
+        // Calcular el bono por orden de llegada (Early Bird Bonus)
+        // Solo se otorga si el usuario actual es un usuario común (no admin ni tester)
+        $earlyBirdBonus = 0;
+        if ($user->role !== 'admin' && $user->role !== 'tester') {
+            $previousCompletions = UserScore::where('ecosystem_id', $ecosystem->id)
+                ->whereHas('user', function ($query) {
+                    $query->whereNotIn('role', ['admin', 'tester']);
+                })
+                ->count();
+
+            if ($previousCompletions === 0) {
+                $earlyBirdBonus = 30; // 1er Lugar
+            } elseif ($previousCompletions === 1) {
+                $earlyBirdBonus = 20; // 2do Lugar
+            } elseif ($previousCompletions === 2) {
+                $earlyBirdBonus = 10; // 3er Lugar
+            }
+        }
+
+        $totalScore = $baseScore + $timeBonus + $earlyBirdBonus;
 
         UserScore::updateOrCreate(
             [
