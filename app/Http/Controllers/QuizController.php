@@ -23,8 +23,19 @@ class QuizController extends Controller
                              ->with('error', 'Ya has completado este quiz.');
         }
 
-        // Obtener preguntas (sin la respuesta correcta)
-        $questions = $ecosystem->questions()->select('id', 'question_text', 'options')->inRandomOrder()->get();
+        // Obtener preguntas (sin la respuesta correcta) y mezclar opciones
+        $questions = $ecosystem->questions()->select('id', 'question_text', 'options', 'image_url')->inRandomOrder()->get();
+
+        $questions->transform(function ($question) {
+            $shuffledOptions = [];
+            foreach ($question->options as $index => $text) {
+                $shuffledOptions[] = ['id' => $index, 'text' => $text];
+            }
+            shuffle($shuffledOptions);
+            
+            $question->options = $shuffledOptions;
+            return $question;
+        });
 
         return Inertia::render('Quiz/Show', [
             'ecosystem' => $ecosystem,
@@ -49,7 +60,7 @@ class QuizController extends Controller
         $correctAnswers = 0;
 
         foreach ($questions as $question) {
-            if (isset($answers[$question->id]) && $answers[$question->id] === $question->correct_option_index) {
+            if (isset($answers[$question->id]) && (int)$answers[$question->id] === (int)$question->correct_option_index) {
                 $baseScore += 20; // 20 pts por respuesta correcta
                 $correctAnswers++;
             }

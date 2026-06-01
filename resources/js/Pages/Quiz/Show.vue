@@ -83,11 +83,11 @@ const submitQuiz = () => {
                         </div>
                         
                         <div class="space-y-3">
-                            <label v-for="(option, oIndex) in question.options" :key="oIndex" 
+                            <label v-for="option in question.options" :key="option.id" 
                                 class="flex items-center p-3 lg:p-4 border border-gray-200 rounded-xl cursor-pointer hover:bg-emerald-50 hover:border-emerald-300 transform transition-all duration-200 active:scale-95"
-                                :class="{'bg-emerald-50 border-emerald-500 ring-2 ring-emerald-500 shadow-md scale-[1.02]': form.answers[question.id] === oIndex}">
-                                <input type="radio" :name="'question_'+question.id" :value="oIndex" v-model="form.answers[question.id]" class="w-5 h-5 text-emerald-600 border-gray-300 focus:ring-emerald-500 mr-3 lg:mr-4 flex-shrink-0 transition-transform duration-200" :class="{'scale-125': form.answers[question.id] === oIndex}">
-                                <span class="text-sm lg:text-base text-gray-700 font-medium leading-tight">{{ option }}</span>
+                                :class="{'bg-emerald-50 border-emerald-500 ring-2 ring-emerald-500 shadow-md scale-[1.02]': form.answers[question.id] === option.id}">
+                                <input type="radio" :name="'question_'+question.id" :value="option.id" v-model="form.answers[question.id]" class="w-5 h-5 text-emerald-600 border-gray-300 focus:ring-emerald-500 mr-3 lg:mr-4 flex-shrink-0 transition-transform duration-200" :class="{'scale-125': form.answers[question.id] === option.id}">
+                                <span class="text-sm lg:text-base text-gray-700 font-medium leading-tight">{{ option.text }}</span>
                             </label>
                         </div>
                     </div>
