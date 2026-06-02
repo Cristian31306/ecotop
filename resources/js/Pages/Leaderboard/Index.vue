@@ -32,11 +32,6 @@ const topThree = computed(() => {
     return props.users.slice(0, 3);
 });
 
-// Users from 4th place onwards
-const remainingUsers = computed(() => {
-    if (props.users.length <= 3) return [];
-    return props.users.slice(3);
-});
 
 // Stats: Total registered users
 const totalUsersCount = computed(() => props.users.length);
@@ -208,7 +203,7 @@ const getInitials = (name) => {
                 <!-- If searching, show all matched users. Else show remaining (4+) -->
                 <div class="space-y-3">
                     <div 
-                        v-for="(u, index) in (searchQuery ? filteredUsers : remainingUsers)" 
+                        v-for="(u, index) in filteredUsers" 
                         :key="u.id"
                         class="glass bg-white/70 border border-white/50 rounded-2xl shadow-sm hover:shadow-md transition-all overflow-hidden"
                     >
@@ -220,7 +215,7 @@ const getInitials = (name) => {
                             <div class="flex items-center space-x-4">
                                 <!-- Rank indicator -->
                                 <span class="w-8 text-center font-black text-sm text-gray-400">
-                                    #{{ searchQuery ? props.users.findIndex(user => user.id === u.id) + 1 : index + 4 }}
+                                    #{{ props.users.indexOf(u) + 1 }}
                                 </span>
                                 
                                 <!-- User initials avatar -->
@@ -282,7 +277,7 @@ const getInitials = (name) => {
                     </div>
                     
                     <!-- Empty State (No users found/registered) -->
-                    <div v-if="(searchQuery ? filteredUsers : remainingUsers).length === 0" class="glass bg-white/40 p-8 text-center rounded-2xl border border-white/50">
+                    <div v-if="filteredUsers.length === 0" class="glass bg-white/40 p-8 text-center rounded-2xl border border-white/50">
                         <svg class="w-8 h-8 text-gray-400 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                         </svg>
