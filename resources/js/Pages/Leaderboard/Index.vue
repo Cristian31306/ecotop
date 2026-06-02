@@ -254,19 +254,43 @@ const getInitials = (name) => {
                         >
                             <h4 class="text-xs font-bold text-emerald-800 uppercase tracking-wider mb-3">Detalle por Día/Ecosistema</h4>
                             
-                            <div v-if="u.scores && u.scores.length > 0" class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                            <div v-if="u.scores && u.scores.length > 0" class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                                 <div 
                                     v-for="s in u.scores" 
                                     :key="s.id"
-                                    class="bg-white/80 p-3 rounded-xl border border-emerald-100 flex justify-between items-center text-xs"
+                                    class="bg-white/80 p-3 rounded-xl border border-emerald-100/70 flex flex-col gap-2 text-xs"
                                 >
-                                    <div class="flex items-center space-x-2">
-                                        <span class="bg-emerald-100 text-emerald-800 font-bold px-1.5 py-0.5 rounded text-[10px]">
-                                            D{{ s.ecosystem?.day_number }}
-                                        </span>
-                                        <span class="font-medium text-gray-700 truncate max-w-[150px]">{{ s.ecosystem?.title }}</span>
+                                    <!-- Main Row -->
+                                    <div class="flex justify-between items-center">
+                                        <div class="flex items-center space-x-2">
+                                            <span class="bg-emerald-100 text-emerald-800 font-bold px-1.5 py-0.5 rounded text-[10px]">
+                                                D{{ s.ecosystem?.day_number }}
+                                            </span>
+                                            <span class="font-bold text-gray-700 truncate max-w-[150px] sm:max-w-[200px]">{{ s.ecosystem?.title }}</span>
+                                        </div>
+                                        <span class="font-black text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-lg border border-emerald-100 shadow-sm">{{ s.score }} pts</span>
                                     </div>
-                                    <span class="font-black text-emerald-600">{{ s.score }} pts</span>
+
+                                    <!-- Breakdown / Bonuses Badges -->
+                                    <div v-if="s.base_score !== undefined && (s.base_score > 0 || s.early_bird_bonus > 0 || s.time_bonus > 0)" class="flex flex-wrap gap-1 mt-0.5 border-t border-emerald-100/40 pt-1.5">
+                                        <!-- Base Score -->
+                                        <span class="inline-flex items-center px-1.5 py-0.5 rounded bg-slate-100 text-slate-700 text-[10px] font-semibold">
+                                            Base: {{ s.base_score }} pts
+                                        </span>
+
+                                        <!-- Early Bird Bonus -->
+                                        <span v-if="s.early_bird_bonus > 0" class="inline-flex items-center px-1.5 py-0.5 rounded bg-amber-50 text-amber-800 text-[10px] font-black border border-amber-200/50">
+                                            <span v-if="s.early_bird_bonus === 30">🥇 +30 Primero en realizarlo</span>
+                                            <span v-else-if="s.early_bird_bonus === 20">🥈 +20 Segundo en realizarlo</span>
+                                            <span v-else-if="s.early_bird_bonus === 10">🥉 +10 Tercero en realizarlo</span>
+                                            <span v-else>⭐ +{{ s.early_bird_bonus }} bono llegada</span>
+                                        </span>
+
+                                        <!-- Time Bonus -->
+                                        <span v-if="s.time_bonus > 0" class="inline-flex items-center px-1.5 py-0.5 rounded bg-sky-50 text-sky-800 text-[10px] font-bold border border-sky-100">
+                                            ⚡ +{{ s.time_bonus }} por tiempo
+                                        </span>
+                                    </div>
                                 </div>
                             </div>
                             

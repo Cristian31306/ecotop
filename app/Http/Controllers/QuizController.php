@@ -131,6 +131,9 @@ class QuizController extends Controller
                     ],
                     [
                         'score' => $totalScore,
+                        'base_score' => $baseScore,
+                        'time_bonus' => $timeBonus,
+                        'early_bird_bonus' => $earlyBirdBonus,
                     ]
                 );
             });
