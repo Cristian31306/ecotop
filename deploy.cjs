@@ -67,6 +67,8 @@ conn.on('ready', () => {
         'echo "Cristian_5732988$" | sudo -S chmod 664 /home/cristian/apps/ecotop/database/database.sqlite',
         'echo "=== Creating storage symlink if not exists ==="',
         'php artisan storage:link || echo "Storage link already exists"',
+        'echo "=== Creating Backup of Production SQLite Database ==="',
+        'cp /home/cristian/apps/ecotop/database/database.sqlite /home/cristian/apps/ecotop/database/database.sqlite.bak_desglose || echo "Backup failed"',
         'echo "=== Running Migrations ==="',
         'php artisan migrate --force',
         'echo "=== Clearing Laravel Cache ==="',

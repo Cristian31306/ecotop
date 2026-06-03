@@ -22,6 +22,7 @@ Route::middleware('auth')->group(function () {
     
     Route::get('/quiz/{ecosystem}', [QuizController::class, 'show'])->name('quiz.show');
     Route::post('/quiz/{ecosystem}', [QuizController::class, 'submit'])->name('quiz.submit');
+    Route::get('/quiz/{ecosystem}/post-credits', [QuizController::class, 'postCredits'])->name('quiz.post_credits');
 
     Route::get('/api/leaderboard', [LeaderboardController::class, 'getTop10'])->name('api.leaderboard');
     Route::get('/leaderboard', [LeaderboardController::class, 'index'])->name('leaderboard');

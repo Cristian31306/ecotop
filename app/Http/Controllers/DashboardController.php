@@ -46,10 +46,47 @@ class DashboardController extends Controller
             ];
         });
 
+        $graduationData = null;
+        if (count($userScores) === 5) {
+            $scores = UserScore::where('user_id', $user->id)->get();
+            $totalScore = $scores->sum('score');
+            $totalEarlyBird = $scores->sum('early_bird_bonus');
+            $totalTimeBonus = $scores->sum('time_bonus');
+
+            $title = 'Sobreviviente del Reto';
+            $message = 'Has completado la Expedición Ecotop. ¡Gracias por participar!';
+
+            if ($totalEarlyBird > 50) {
+                $title = 'El Madrugador Extremo 🦇';
+                $message = 'Sabemos que pusiste la alarma súper temprano. Tu dedicación (o locura) es admirable.';
+            } elseif ($totalTimeBonus > 200) {
+                $title = 'Flash Ecológico ⚡';
+                $message = 'Lees tan rápido que sospechamos que tienes poderes... o contactos en el cartel de respuestas.';
+            } elseif ($totalScore >= 900) {
+                $title = 'Sabio de la Naturaleza 🌿';
+                $message = 'No se te escapa una. Prácticamente podrías dar las clases tú mismo.';
+            } else {
+                $title = 'Guardián del Ecosistema 🛡️';
+                $message = 'Luchaste contra el sueño y las preguntas difíciles. ¡Eres grande!';
+            }
+
+            $graduationData = [
+                'title' => $title,
+                'message' => $message,
+                'totalScore' => $totalScore,
+                'fakeStats' => [
+                    ['label' => 'Tazas de café consumidas', 'value' => rand(15, 50)],
+                    ['label' => 'Intentos de hackeo al sistema', 'value' => rand(0, 3)],
+                    ['label' => 'Respuestas compartidas', 'value' => 'Demasiadas 👀']
+                ]
+            ];
+        }
+
         return Inertia::render('Dashboard', [
             'ecosystems' => $ecosystemsData,
             'userScoresCount' => count($userScores),
             'isAdmin' => $isAdmin,
+            'graduationData' => $graduationData,
         ]);
     }
 

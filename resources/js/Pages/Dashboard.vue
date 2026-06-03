@@ -7,6 +7,7 @@ defineProps({
     ecosystems: Array,
     userScoresCount: Number,
     isAdmin: Boolean,
+    graduationData: Object,
 });
 </script>
 
@@ -32,6 +33,35 @@ defineProps({
                         <div class="text-xs lg:text-sm text-emerald-800 font-semibold uppercase tracking-wider text-center">Ecosistemas completados</div>
                         <a v-if="userScoresCount === 5" :href="route('diploma.download')" class="mt-4 btn-primary text-sm lg:text-base w-full sm:w-auto text-center">
                             Descargar Diploma
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Final Graduation Card -->
+                <div v-if="graduationData" class="bg-gradient-to-br from-emerald-900 to-teal-900 rounded-3xl p-1 relative overflow-hidden shadow-2xl mb-8 transform hover:scale-[1.01] transition-transform duration-300">
+                    <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] opacity-20"></div>
+                    <div class="bg-slate-900/80 backdrop-blur-md rounded-[22px] p-6 md:p-10 text-white flex flex-col items-center justify-center text-center relative z-10 border border-emerald-500/30">
+                        <div class="inline-flex items-center justify-center p-4 bg-emerald-500/20 rounded-full mb-6 ring-2 ring-emerald-400/50">
+                            <svg class="w-10 h-10 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        </div>
+                        <h2 class="text-xs uppercase tracking-[0.3em] text-emerald-400 font-bold mb-2">Evaluación Finalizada</h2>
+                        <h3 class="text-4xl md:text-5xl font-black mb-4 text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 to-emerald-400 leading-tight">
+                            {{ graduationData.title }}
+                        </h3>
+                        <p class="text-lg md:text-xl text-slate-300 max-w-2xl mb-8">
+                            {{ graduationData.message }}
+                        </p>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 w-full max-w-3xl mb-8">
+                            <div v-for="(stat, idx) in graduationData.fakeStats" :key="idx" class="bg-black/40 rounded-xl p-4 border border-emerald-900/50">
+                                <div class="text-2xl font-bold text-emerald-300 mb-1">{{ stat.value }}</div>
+                                <div class="text-xs text-emerald-100/70 uppercase tracking-wider">{{ stat.label }}</div>
+                            </div>
+                        </div>
+
+                        <a :href="route('diploma.download')" class="px-8 py-4 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-white font-bold rounded-xl shadow-[0_0_20px_rgba(16,185,129,0.4)] transition-all flex items-center gap-3">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                            Descargar Mi Diploma Real
                         </a>
                     </div>
                 </div>

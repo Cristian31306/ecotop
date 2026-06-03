@@ -147,6 +147,25 @@ class QuizController extends Controller
             throw $e;
         }
 
+        // Si es el último ecosistema (Día 5), redirigimos a la escena post-créditos
+        if ($ecosystem->day_number == 5) {
+            return redirect()->route('quiz.post_credits', $ecosystem->id);
+        }
+
         return redirect()->route('dashboard');
+    }
+
+    public function postCredits(Ecosystem $ecosystem, Request $request)
+    {
+        $user = $request->user();
+
+        // Verificar que el usuario realmente haya completado este ecosistema
+        if (!UserScore::where('user_id', $user->id)->where('ecosystem_id', $ecosystem->id)->exists()) {
+            return redirect()->route('dashboard');
+        }
+
+        return Inertia::render('Quiz/PostCredits', [
+            'ecosystem' => $ecosystem,
+        ]);
     }
 }
