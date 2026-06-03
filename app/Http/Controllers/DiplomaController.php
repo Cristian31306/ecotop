@@ -47,7 +47,7 @@ class DiplomaController extends Controller
             'user' => $user, 
             'totalScore' => $totalScore,
             'title' => $title
-        ]);
+        ])->setPaper('a4', 'landscape');
 
         return $pdf->download('Diploma_Ecotop_'.$user->name.'.pdf');
     }
