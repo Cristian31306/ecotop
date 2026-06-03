@@ -207,7 +207,11 @@ body {
             </div>
 
             <div class="pill">
-                Rango: <b>{{ preg_replace('/[\x{10000}-\x{10FFFF}]/u', '', $title ?? 'Guardián del Ecosistema') }}</b> &nbsp;&nbsp;&bull;&nbsp;&nbsp; Puntaje: <b>{{ $totalScore }}</b>
+                Rango: 
+                <div style="display:inline-block; width:4px; height:4px; background-color:#c5a059; transform:rotate(45deg); margin:0 4px 1.5px 4px;"></div>
+                <b>{{ trim(preg_replace('/[^\p{L}\p{N}\s]/u', '', $title ?? 'Guardián del Ecosistema')) }}</b> 
+                <div style="display:inline-block; width:4px; height:4px; background-color:#c5a059; transform:rotate(45deg); margin:0 4px 1.5px 4px;"></div>
+                &nbsp;&nbsp;&bull;&nbsp;&nbsp; Puntaje: <b>{{ $totalScore }}</b>
             </div>
         </div>
 
