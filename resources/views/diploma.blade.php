@@ -34,12 +34,12 @@ body {
     text-align: center;
 }
 
-/* ESQUINAS SIMPLES EN LUGAR DE SVG */
-.corner { position: absolute; font-size: 24px; color: #c5a059; line-height: 1; }
-.c-tl { top: 6px; left: 10px; }
-.c-tr { top: 6px; right: 10px; }
-.c-bl { bottom: 6px; left: 10px; }
-.c-br { bottom: 6px; right: 10px; }
+/* ESQUINAS SIMPLES CSS (SIN CARACTERES UNICODE) */
+.corner { position: absolute; width: 12px; height: 12px; border: 1.5px solid #c5a059; }
+.c-tl { top: 10px; left: 10px; border-right: none; border-bottom: none; }
+.c-tr { top: 10px; right: 10px; border-left: none; border-bottom: none; }
+.c-bl { bottom: 10px; left: 10px; border-right: none; border-top: none; }
+.c-br { bottom: 10px; right: 10px; border-left: none; border-top: none; }
 
 /* WATERMARK CENTRAL */
 .watermark {
@@ -174,10 +174,10 @@ body {
 
 <div class="wrapper">
     <div class="inner-wrapper">
-        <div class="corner c-tl">&#x25A3;</div>
-        <div class="corner c-tr">&#x25A3;</div>
-        <div class="corner c-bl">&#x25A3;</div>
-        <div class="corner c-br">&#x25A3;</div>
+        <div class="corner c-tl"></div>
+        <div class="corner c-tr"></div>
+        <div class="corner c-bl"></div>
+        <div class="corner c-br"></div>
 
         <div class="id-date">
             <b>ID:</b> {{ str_pad($user->id, 6, '0', STR_PAD_LEFT) }}<br>
@@ -186,7 +186,9 @@ body {
 
         <div class="content">
             <div class="prog">Programa Expedición Ecotop</div>
-            <div class="emblema-simple">&#10022;</div>
+            <div class="emblema-simple">
+                <div style="width: 8px; height: 8px; background-color: #c5a059; transform: rotate(45deg); margin: 0 auto;"></div>
+            </div>
 
             <div class="tit">Certificado de Excelencia</div>
             <div class="sub">Condecoración al Mérito Ambiental</div>
@@ -205,7 +207,7 @@ body {
             </div>
 
             <div class="pill">
-                Rango: <b>{{ $title ?? 'Guardián del Ecosistema' }}</b> &nbsp;&nbsp;&bull;&nbsp;&nbsp; Puntaje: <b>{{ $totalScore }}</b>
+                Rango: <b>{{ preg_replace('/[\x{10000}-\x{10FFFF}]/u', '', $title ?? 'Guardián del Ecosistema') }}</b> &nbsp;&nbsp;&bull;&nbsp;&nbsp; Puntaje: <b>{{ $totalScore }}</b>
             </div>
         </div>
 
