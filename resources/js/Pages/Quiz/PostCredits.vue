@@ -21,19 +21,31 @@ const glitchMessages = [
 const selectedAnswer = ref(null);
 
 onMounted(() => {
-    // Secuencia de Glitch
+    // Secuencia de Glitch (Typing effect)
     let currentMsg = 0;
-    const glitchInterval = setInterval(() => {
+    let currentChar = 0;
+    
+    const typeNextChar = () => {
         if (currentMsg < glitchMessages.length) {
-            glitchText.value += glitchMessages[currentMsg] + '\n';
-            currentMsg++;
+            if (currentChar < glitchMessages[currentMsg].length) {
+                glitchText.value += glitchMessages[currentMsg].charAt(currentChar);
+                currentChar++;
+                setTimeout(typeNextChar, 40); // Velocidad de tipeo por letra
+            } else {
+                glitchText.value += '\n';
+                currentMsg++;
+                currentChar = 0;
+                setTimeout(typeNextChar, 1200); // Pausa entre cada línea para que la lean
+            }
         } else {
-            clearInterval(glitchInterval);
+            // Terminó de escribir, esperar un momento y mostrar pregunta
             setTimeout(() => {
                 step.value = 'question';
-            }, 1000);
+            }, 2500);
         }
-    }, 800); // 800ms por línea
+    };
+
+    setTimeout(typeNextChar, 500);
 });
 
 const submitJokeAnswer = (index) => {
@@ -69,50 +81,51 @@ const goToDashboard = () => {
     <Head title="¡ERROR DEL SISTEMA!" />
 
     <!-- STEP 1: GLITCH TERMINAL -->
-    <div v-if="step === 'glitch'" class="min-h-screen bg-black text-green-500 font-mono p-8 flex flex-col justify-center items-start overflow-hidden relative">
+    <div v-if="step === 'glitch'" class="min-h-screen bg-black text-green-500 font-mono p-4 md:p-8 flex flex-col justify-center items-start overflow-hidden relative">
         <!-- Efecto Scanline -->
         <div class="absolute inset-0 pointer-events-none opacity-20 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] bg-[length:100%_4px,3px_100%] z-50"></div>
         
-        <div class="max-w-3xl mx-auto w-full z-10">
-            <h1 class="text-4xl md:text-6xl font-bold mb-8 text-red-600 animate-pulse">! ALERTA DE SISTEMA !</h1>
-            <pre class="whitespace-pre-wrap text-lg md:text-2xl leading-relaxed">{{ glitchText }}<span class="animate-ping">_</span></pre>
+        <div class="max-w-3xl mx-auto w-full z-10 px-2 md:px-0">
+            <h1 class="text-2xl md:text-5xl font-bold mb-6 md:mb-8 text-red-600 animate-pulse">! ALERTA DE SISTEMA !</h1>
+            <pre class="whitespace-pre-wrap text-sm md:text-2xl leading-relaxed font-mono">{{ glitchText }}<span class="animate-ping">_</span></pre>
         </div>
     </div>
 
     <!-- STEP 2: THE JOKE QUESTION -->
-    <div v-if="step === 'question'" class="min-h-screen bg-slate-900 text-white flex flex-col items-center justify-center p-4 relative overflow-hidden">
-        <div class="absolute inset-0 bg-gradient-to-br from-red-900/20 to-purple-900/20 z-0"></div>
+    <div v-if="step === 'question'" class="min-h-screen bg-slate-950 text-white flex flex-col items-center justify-center p-4 relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-br from-red-900/30 to-purple-900/30 z-0"></div>
         
-        <div class="glass-card max-w-2xl w-full p-8 md:p-12 relative z-10 border-2 border-red-500/50 shadow-[0_0_50px_rgba(220,38,38,0.3)] text-center transform transition-all animate-bounce-in">
+        <div class="bg-slate-900/95 backdrop-blur-xl rounded-3xl max-w-2xl w-full p-6 md:p-12 relative z-10 border border-red-500/50 shadow-[0_0_50px_rgba(220,38,38,0.4)] text-center transform transition-all animate-bounce-in">
             <h2 class="text-3xl md:text-5xl font-black mb-2 text-transparent bg-clip-text bg-gradient-to-r from-red-400 to-yellow-400">
                 EL JEFE FINAL
             </h2>
-            <p class="text-slate-300 mb-8 font-mono text-sm uppercase tracking-widest">Protocolo de máxima seguridad</p>
+            <p class="text-slate-300 mb-8 font-mono text-xs md:text-sm uppercase tracking-widest">Protocolo de máxima seguridad</p>
             
-            <div class="text-2xl md:text-3xl font-bold mb-10 leading-tight">
+            <div class="text-xl md:text-3xl font-bold mb-8 md:mb-10 leading-tight">
                 ¿De qué color era el caballo blanco de Simón Bolívar?
             </div>
             
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <button @click="submitJokeAnswer(0)" class="px-6 py-4 bg-slate-800 hover:bg-slate-700 border border-slate-600 rounded-xl font-bold text-lg transition-colors">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
+                <button @click="submitJokeAnswer(0)" class="px-4 py-4 md:px-6 md:py-4 bg-slate-800 hover:bg-slate-700 border border-slate-600 rounded-xl font-bold text-base md:text-lg transition-colors active:scale-95">
                     Blanco, duh.
                 </button>
-                <button @click="submitJokeAnswer(1)" class="px-6 py-4 bg-slate-800 hover:bg-slate-700 border border-slate-600 rounded-xl font-bold text-lg transition-colors">
+                <button @click="submitJokeAnswer(1)" class="px-4 py-4 md:px-6 md:py-4 bg-slate-800 hover:bg-slate-700 border border-slate-600 rounded-xl font-bold text-base md:text-lg transition-colors active:scale-95">
                     Color café con leche
                 </button>
-                <button @click="submitJokeAnswer(2)" class="px-6 py-4 bg-slate-800 hover:bg-slate-700 border border-slate-600 rounded-xl font-bold text-lg transition-colors">
+                <button @click="submitJokeAnswer(2)" class="px-4 py-4 md:px-6 md:py-4 bg-slate-800 hover:bg-slate-700 border border-slate-600 rounded-xl font-bold text-base md:text-lg transition-colors active:scale-95">
                     Era un unicornio 🦄
                 </button>
-                <button @click="submitJokeAnswer(3)" class="px-6 py-4 bg-slate-800 hover:bg-slate-700 border border-slate-600 rounded-xl font-bold text-lg transition-colors">
-                    No me acuerdo, yo estaba madrugando para el reto.
+                <button @click="submitJokeAnswer(3)" class="px-4 py-4 md:px-6 md:py-4 bg-slate-800 hover:bg-slate-700 border border-slate-600 rounded-xl font-bold text-base md:text-lg transition-colors active:scale-95">
+                    No sé, yo estaba madrugando
                 </button>
             </div>
         </div>
     </div>
 
     <!-- STEP 3: SUCCESS & CONFETTI -->
-    <div v-if="step === 'success'" class="min-h-screen bg-slate-900 text-white flex flex-col items-center justify-center p-4 relative overflow-hidden">
-        <div class="glass-card max-w-2xl w-full p-10 md:p-16 relative z-10 text-center flex flex-col items-center shadow-[0_0_100px_rgba(16,185,129,0.2)]">
+    <div v-if="step === 'success'" class="min-h-screen bg-slate-950 text-white flex flex-col items-center justify-center p-4 relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-tr from-emerald-900/20 to-slate-900 z-0"></div>
+        <div class="bg-slate-900/95 backdrop-blur-xl rounded-3xl max-w-2xl w-full p-8 md:p-16 relative z-10 text-center flex flex-col items-center border border-emerald-500/30 shadow-[0_0_100px_rgba(16,185,129,0.3)]">
             <div class="w-24 h-24 bg-emerald-500 rounded-full flex items-center justify-center mb-8 animate-bounce">
                 <svg class="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
             </div>
@@ -120,14 +133,14 @@ const goToDashboard = () => {
             <h2 class="text-4xl md:text-6xl font-black mb-4 text-emerald-400">
                 ¡CAYERON! 😂
             </h2>
-            <p class="text-xl md:text-2xl text-slate-300 mb-8 max-w-lg">
+            <p class="text-lg md:text-2xl text-slate-200 mb-8 max-w-lg leading-relaxed">
                 No importa el color del caballo. ¡Felicidades por sobrevivir a la Expedición Ecotop!
             </p>
-            <p class="text-md text-slate-400 mb-10 italic">
-                (Y gracias por madrugar, trasnochar y armar sus redes de respuestas, nos dimos cuenta de todo 👀)
+            <p class="text-sm md:text-base text-slate-400 mb-10 italic">
+                (Y gracias por madrugar, trasnochar y armar sus redes de respuestas... ¡nos dimos cuenta de todo 👀!)
             </p>
             
-            <button @click="goToDashboard" class="btn-primary px-10 py-4 text-xl font-bold rounded-full w-full sm:w-auto shadow-lg shadow-emerald-600/30">
+            <button @click="goToDashboard" class="btn-primary px-8 py-4 text-lg md:text-xl font-bold rounded-full w-full sm:w-auto shadow-lg shadow-emerald-600/30 active:scale-95 transition-transform">
                 Reclamar mi Título Honorífico
             </button>
         </div>
