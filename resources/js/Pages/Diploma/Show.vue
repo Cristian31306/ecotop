@@ -28,7 +28,7 @@ const today = new Date().toLocaleDateString('es-CO', {
             </div>
 
             <!-- TARJETA PREMIUM -->
-            <div class="relative w-full max-w-md mx-auto aspect-[1.58/1] rounded-2xl overflow-hidden shadow-2xl transform hover:scale-[1.02] transition-transform duration-500 bg-gradient-to-br from-[#0b170e] to-[#1a2d1d]">
+            <div class="relative w-full max-w-md mx-auto rounded-2xl overflow-hidden shadow-2xl transform hover:scale-[1.02] transition-transform duration-500 bg-gradient-to-br from-[#0b170e] to-[#1a2d1d]">
                 
                 <!-- Texturas / Patron de fondo -->
                 <div class="absolute inset-0 opacity-10 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-emerald-300 via-transparent to-transparent"></div>
@@ -37,7 +37,7 @@ const today = new Date().toLocaleDateString('es-CO', {
                 <div class="absolute inset-2 border border-dashed border-[#c5a059]/40 rounded-xl"></div>
                 <div class="absolute inset-3 border border-[#c5a059]/20 rounded-lg"></div>
 
-                <div class="relative h-full flex flex-col p-6 lg:p-8 text-[#efe6d3] z-10">
+                <div class="relative flex flex-col p-6 lg:p-8 text-[#efe6d3] z-10 min-h-[250px]">
                     
                     <!-- Header Tarjeta -->
                     <div class="flex justify-between items-start w-full">
@@ -81,7 +81,7 @@ const today = new Date().toLocaleDateString('es-CO', {
                     </div>
 
                     <!-- Footer Tarjeta -->
-                    <div class="w-full flex justify-between items-end mt-auto">
+                    <div class="w-full flex justify-between items-end mt-6">
                         <div class="text-[9px] text-[#efe6d3]/50 tracking-wider">
                             EMITIDO: <br> <span class="text-[#c5a059]">{{ today }}</span>
                         </div>
@@ -93,7 +93,6 @@ const today = new Date().toLocaleDateString('es-CO', {
             </div>
             
             <div class="mt-10 flex flex-col items-center gap-3 text-center">
-                <p class="text-emerald-700 font-medium text-sm lg:text-base">📸 ¡Toma una captura de pantalla para guardar tu logro!</p>
                 <Link :href="route('dashboard')" class="btn-primary px-8 py-3 mt-2 flex items-center justify-center gap-2">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
                     Volver al Dashboard
