@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, onUnmounted } from 'vue';
 import { Head, Link, router } from '@inertiajs/vue3';
 import confetti from 'canvas-confetti';
 
@@ -41,6 +41,18 @@ onMounted(() => {
             // Terminó de escribir, esperar un momento y mostrar pregunta
             setTimeout(() => {
                 step.value = 'question';
+                
+                // Detener el audio de alerta si está sonando
+                if (window.alertaAudio) {
+                    window.alertaAudio.pause();
+                    window.alertaAudio.currentTime = 0;
+                }
+
+                // Iniciar el tictac en bucle
+                window.tictacAudio = new Audio('/tictac.mp3');
+                window.tictacAudio.loop = true;
+                window.tictacAudio.play().catch(e => console.log('Audio play failed:', e));
+                
             }, 2500);
         }
     };
@@ -52,6 +64,13 @@ const submitJokeAnswer = (index) => {
     selectedAnswer.value = index;
     step.value = 'success';
     
+    // Detener el tictac
+    if (window.tictacAudio) {
+        window.tictacAudio.pause();
+        window.tictacAudio.currentTime = 0;
+    }
+    
+
     // Lanzar confeti épico
     const duration = 3000;
     const animationEnd = Date.now() + duration;
@@ -75,6 +94,17 @@ const submitJokeAnswer = (index) => {
 const goToDashboard = () => {
     router.visit(route('dashboard'));
 };
+
+onUnmounted(() => {
+    if (window.alertaAudio) {
+        window.alertaAudio.pause();
+        window.alertaAudio.currentTime = 0;
+    }
+    if (window.tictacAudio) {
+        window.tictacAudio.pause();
+        window.tictacAudio.currentTime = 0;
+    }
+});
 </script>
 
 <template>

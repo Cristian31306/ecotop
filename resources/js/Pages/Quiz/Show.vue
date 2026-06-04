@@ -69,6 +69,12 @@ const triggerConfetti = () => {
 const submitQuiz = () => {
     form.time_elapsed = Math.floor((Date.now() - startTime) / 1000); // Segundos transcurridos
     
+    // Si es el ecosistema del quinto día, reproducimos la alerta de inmediato
+    if (props.ecosystem.day_number === 5 || props.ecosystem.day_number == '5') {
+        window.alertaAudio = new Audio('/alerta.m4a');
+        window.alertaAudio.play().catch(e => console.log('Audio play failed:', e));
+    }
+
     // Disparar confetti antes de enviar (boom!)
     triggerConfetti();
 
@@ -76,7 +82,7 @@ const submitQuiz = () => {
     setTimeout(() => {
         form.post(route('quiz.submit', props.ecosystem.id), {
             onSuccess: () => {
-                // Redirige al dashboard automáticamente
+                // Redirige al dashboard o a post_credits automáticamente
             }
         });
     }, 1500);
