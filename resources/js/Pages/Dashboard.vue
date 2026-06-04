@@ -31,7 +31,7 @@ defineProps({
                     <div class="mt-6 md:mt-0 flex flex-col items-center">
                         <div class="text-4xl lg:text-5xl font-bold text-emerald-600 mb-1 lg:mb-2">{{ userScoresCount }}/5</div>
                         <div class="text-xs lg:text-sm text-emerald-800 font-semibold uppercase tracking-wider text-center">Ecosistemas completados</div>
-                        <Link v-if="userScoresCount === 5" :href="route('diploma.show')" class="mt-4 btn-primary text-sm lg:text-base w-full sm:w-auto text-center">
+                        <Link v-if="userScoresCount === 5" :href="route('diploma.download')" class="mt-4 btn-primary text-sm lg:text-base w-full sm:w-auto text-center">
                             Ver Mi Tarjeta de Logro
                         </Link>
                     </div>
@@ -59,7 +59,7 @@ defineProps({
                             </div>
                         </div>
 
-                        <Link :href="route('diploma.show')" class="px-8 py-4 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-white font-bold rounded-xl shadow-[0_0_20px_rgba(16,185,129,0.4)] transition-all flex items-center gap-3">
+                        <Link :href="route('diploma.download')" class="px-8 py-4 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-white font-bold rounded-xl shadow-[0_0_20px_rgba(16,185,129,0.4)] transition-all flex items-center gap-3">
                             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
                             Ver Mi Tarjeta de Logro
                         </Link>

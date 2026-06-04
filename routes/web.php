@@ -27,7 +27,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/api/leaderboard', [LeaderboardController::class, 'getTop10'])->name('api.leaderboard');
     Route::get('/leaderboard', [LeaderboardController::class, 'index'])->name('leaderboard');
     
-    Route::get('/diploma', [DiplomaController::class, 'show'])->name('diploma.show');
+    Route::get('/diploma', [DiplomaController::class, 'show'])->name('diploma.download');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
