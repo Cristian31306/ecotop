@@ -92,12 +92,9 @@ const today = new Date().toLocaleDateString('es-CO', {
                 </div>
             </div>
             
-            <div class="mt-10 flex flex-col sm:flex-row gap-4">
-                <button onclick="window.print()" class="px-6 py-3 bg-white text-gray-800 border border-gray-300 hover:bg-gray-50 rounded-xl font-bold shadow-sm transition-all flex items-center gap-2">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg>
-                    Imprimir o Guardar PDF
-                </button>
-                <Link :href="route('dashboard')" class="btn-primary px-6 py-3 flex items-center justify-center gap-2">
+            <div class="mt-10 flex flex-col items-center gap-3 text-center">
+                <p class="text-emerald-700 font-medium text-sm lg:text-base">📸 ¡Toma una captura de pantalla para guardar tu logro!</p>
+                <Link :href="route('dashboard')" class="btn-primary px-8 py-3 mt-2 flex items-center justify-center gap-2">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
                     Volver al Dashboard
                 </Link>
