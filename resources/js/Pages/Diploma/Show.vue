@@ -85,8 +85,9 @@ const today = new Date().toLocaleDateString('es-CO', {
                         <div class="text-[9px] text-[#efe6d3]/50 tracking-wider">
                             EMITIDO: <br> <span class="text-[#c5a059]">{{ today }}</span>
                         </div>
-                        <div class="w-10 h-10 border border-[#c5a059]/50 rounded-full flex items-center justify-center opacity-80 shadow-[0_0_10px_rgba(197,160,89,0.2)]">
-                            <span class="text-[8px] font-bold text-[#c5a059]">SELLO</span>
+                        <div class="text-right opacity-80">
+                            <div class="text-[10px] font-bold text-[#c5a059] tracking-widest uppercase">Ecotop</div>
+                            <div class="text-[8px] text-[#efe6d3]/60 tracking-widest">BY ALGORAH</div>
                         </div>
                     </div>
                 </div>
