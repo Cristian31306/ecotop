@@ -7,9 +7,11 @@ use App\Models\UserScore;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
 
+use Inertia\Inertia;
+
 class DiplomaController extends Controller
 {
-    public function download(Request $request)
+    public function show(Request $request)
     {
         $user = $request->user();
 
@@ -43,12 +45,10 @@ class DiplomaController extends Controller
             $title = 'Sabio de la Naturaleza 🌿';
         }
 
-        $pdf = Pdf::loadView('diploma', [
+        return Inertia::render('Diploma/Show', [
             'user' => $user, 
             'totalScore' => $totalScore,
             'title' => $title
-        ])->setPaper('a4', 'landscape');
-
-        return $pdf->download('Diploma_Ecotop_'.$user->name.'.pdf');
+        ]);
     }
 }
