@@ -40,6 +40,9 @@ class QuizController extends Controller
             return $question;
         });
 
+        // Registrar el tiempo de inicio en la sesión del servidor (blindaje anti-trampas)
+        $request->session()->put('quiz_start_' . $ecosystem->id, now()->timestamp);
+
         return Inertia::render('Quiz/Show', [
             'ecosystem' => $ecosystem,
             'questions' => $questions,
@@ -61,7 +64,21 @@ class QuizController extends Controller
         }
 
         $answers = $request->input('answers', []);
-        $time_elapsed = (int) $request->input('time_elapsed', 60); // Segundos que tardó, default 60
+        
+        // Calcular tiempo desde el servidor (ignorar por completo al cliente)
+        $sessionKey = 'quiz_start_' . $ecosystem->id;
+        $startTime = $request->session()->get($sessionKey);
+        
+        if ($startTime) {
+            $time_elapsed = max(0, now()->timestamp - $startTime);
+            // Limpiamos la sesión para que si intenta reenviar no recicle el tiempo
+            $request->session()->forget($sessionKey); 
+        } else {
+            // Si llega directo al POST sin pasar por el GET (bot), o la sesión caducó, 
+            // asumimos 60 segundos (lo que da 0 de bono).
+            $time_elapsed = 60;
+        }
+
         $questions = $ecosystem->questions()->get();
         
         $baseScore = 0;

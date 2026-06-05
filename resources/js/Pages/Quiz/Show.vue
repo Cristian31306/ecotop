@@ -11,10 +11,7 @@ const props = defineProps({
 
 const form = useForm({
     answers: {},
-    time_elapsed: 0,
 });
-
-let startTime = 0;
 
 const preventDefault = (e) => {
     e.preventDefault();
@@ -32,8 +29,6 @@ const handleKeyDown = (e) => {
 };
 
 onMounted(() => {
-    startTime = Date.now();
-    
     // Bloquear clic derecho y teclado para evitar copiar
     document.addEventListener('contextmenu', preventDefault);
     document.addEventListener('keydown', handleKeyDown);
@@ -67,8 +62,6 @@ const triggerConfetti = () => {
 };
 
 const submitQuiz = () => {
-    form.time_elapsed = Math.floor((Date.now() - startTime) / 1000); // Segundos transcurridos
-    
     // Si es el ecosistema del quinto día, reproducimos la alerta de inmediato
     if (props.ecosystem.day_number === 5 || props.ecosystem.day_number == '5') {
         window.alertaAudio = new Audio('/alerta.m4a');
