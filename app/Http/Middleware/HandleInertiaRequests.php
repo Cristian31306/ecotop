@@ -34,6 +34,7 @@ class HandleInertiaRequests extends Middleware
 
         return [
             ...parent::share($request),
+            'system_closure_time' => \App\Models\Setting::where('key', 'system_closure_time')->value('value'),
             'auth' => [
                 'user' => $user,
                 'has_rated' => (bool)$feedback,

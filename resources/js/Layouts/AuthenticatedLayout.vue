@@ -7,6 +7,7 @@ import NavLink from '@/Components/NavLink.vue';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
 import { Link, usePage } from '@inertiajs/vue3';
 import FeedbackModal from '@/Components/FeedbackModal.vue';
+import SystemClosureTimer from '@/Components/SystemClosureTimer.vue';
 
 const showingNavigationDropdown = ref(false);
 const showingFeedbackModal = ref(false);
@@ -33,6 +34,7 @@ onMounted(() => {
 <template>
     <div>
         <div class="min-h-screen">
+            <SystemClosureTimer />
             <nav class="glass sticky top-0 z-50 border-b-0 shadow-sm">
                 <!-- Primary Navigation Menu -->
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -59,6 +61,9 @@ onMounted(() => {
                                 </NavLink>
                                 <NavLink v-if="user.role === 'admin'" :href="route('admin.feedback.index')" :active="route().current('admin.feedback.index')">
                                     Comentarios
+                                </NavLink>
+                                <NavLink v-if="user.role === 'admin'" :href="route('admin.settings.index')" :active="route().current('admin.settings.*')">
+                                    Configuración
                                 </NavLink>
                             </div>
                         </div>
@@ -129,6 +134,9 @@ onMounted(() => {
                         </ResponsiveNavLink>
                         <ResponsiveNavLink v-if="user.role === 'admin'" :href="route('admin.feedback.index')" :active="route().current('admin.feedback.index')">
                             Comentarios y Calificaciones
+                        </ResponsiveNavLink>
+                        <ResponsiveNavLink v-if="user.role === 'admin'" :href="route('admin.settings.index')" :active="route().current('admin.settings.*')">
+                            Configuración
                         </ResponsiveNavLink>
                     </div>
 
