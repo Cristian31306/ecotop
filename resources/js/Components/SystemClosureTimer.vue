@@ -6,7 +6,7 @@ const page = usePage();
 
 const closureTimeStr = computed(() => page.props.system_closure_time);
 const user = computed(() => page.props.auth.user);
-const isAdmin = computed(() => user.value?.is_admin === 1 || user.value?.is_admin === true);
+const isAdmin = computed(() => user.value?.role === 'admin');
 
 const timeLeft = ref('');
 const isVisible = ref(false);
@@ -38,13 +38,6 @@ const calculateTimeLeft = () => {
         timeLeft.value = '00:00:00';
         isVisible.value = true;
         isExpired.value = true;
-        
-        if (!isAdmin.value && !hasRedirected) {
-            hasRedirected = true;
-            clearInterval(timerInterval);
-            // Expulsar al usuario normal
-            router.post(route('logout'));
-        }
         return;
     }
 
