@@ -61,6 +61,18 @@ class QuizController extends Controller
                 }
                 return redirect()->route('ecosystem.show', $ecosystem->id)->with('error', 'Ya has completado este quiz.');
             }
+
+            // Verificar si el sistema está cerrado
+            $closureTimeStr = \App\Models\Setting::where('key', 'system_closure_time')->value('value');
+            if ($closureTimeStr) {
+                $closureTime = \Carbon\Carbon::parse($closureTimeStr);
+                if (\Carbon\Carbon::now()->greaterThanOrEqualTo($closureTime)) {
+                    if ($request->expectsJson()) {
+                        return response()->json(['error' => 'El tiempo para responder ha terminado.'], 403);
+                    }
+                    return redirect()->route('dashboard')->with('error', 'El tiempo para responder ha terminado.');
+                }
+            }
         }
 
         $answers = $request->input('answers', []);

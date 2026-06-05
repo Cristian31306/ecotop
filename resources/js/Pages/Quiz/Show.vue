@@ -92,6 +92,10 @@ const submitQuiz = () => {
                 <p class="text-sm lg:text-base text-emerald-100">Responde correctamente para sumar puntos a tu ranking. ¡El tiempo corre!</p>
             </div>
 
+            <div v-if="$page.props.is_system_closed" class="mb-6 p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg text-center font-bold shadow-md animate-pulse">
+                ⏳ El tiempo para responder se ha agotado. Ya no puedes enviar respuestas.
+            </div>
+
             <form @submit.prevent="submitQuiz">
                 <div class="space-y-6 lg:space-y-8">
                     <div v-for="(question, qIndex) in questions" :key="question.id" class="glass-card p-5 lg:p-6 shadow-lg hover:shadow-2xl transition-shadow duration-300">
@@ -107,9 +111,16 @@ const submitQuiz = () => {
                         
                         <div class="space-y-3">
                             <label v-for="option in question.options" :key="option.id" 
-                                class="flex items-center p-3 lg:p-4 border border-gray-200 rounded-xl cursor-pointer hover:bg-emerald-50 hover:border-emerald-300 transform transition-all duration-200 active:scale-95"
-                                :class="{'bg-emerald-50 border-emerald-500 ring-2 ring-emerald-500 shadow-md scale-[1.02]': form.answers[question.id] === option.id}">
-                                <input type="radio" :name="'question_'+question.id" :value="option.id" v-model="form.answers[question.id]" class="w-5 h-5 text-emerald-600 border-gray-300 focus:ring-emerald-500 mr-3 lg:mr-4 flex-shrink-0 transition-transform duration-200" :class="{'scale-125': form.answers[question.id] === option.id}">
+                                class="flex items-center p-3 lg:p-4 border border-gray-200 rounded-xl transition-all duration-200"
+                                :class="{
+                                    'cursor-pointer hover:bg-emerald-50 hover:border-emerald-300 active:scale-95': !$page.props.is_system_closed,
+                                    'cursor-not-allowed opacity-60': $page.props.is_system_closed,
+                                    'bg-emerald-50 border-emerald-500 ring-2 ring-emerald-500 shadow-md scale-[1.02]': form.answers[question.id] === option.id
+                                }">
+                                <input type="radio" :name="'question_'+question.id" :value="option.id" v-model="form.answers[question.id]" 
+                                    :disabled="$page.props.is_system_closed"
+                                    class="w-5 h-5 text-emerald-600 border-gray-300 focus:ring-emerald-500 mr-3 lg:mr-4 flex-shrink-0 transition-transform duration-200" 
+                                    :class="{'scale-125': form.answers[question.id] === option.id}">
                                 <span class="text-sm lg:text-base text-gray-700 font-medium leading-tight">{{ option.text }}</span>
                             </label>
                         </div>
@@ -117,13 +128,18 @@ const submitQuiz = () => {
                 </div>
 
                 <div class="mt-8 text-center pb-6">
-                    <button type="submit" :disabled="form.processing" class="btn-primary w-full sm:w-auto text-base lg:text-lg px-8 lg:px-10 py-4 transform transition-transform duration-300 hover:scale-105 hover:-translate-y-1 shadow-lg hover:shadow-emerald-500/50" :class="{'opacity-50 cursor-not-allowed scale-100 translate-y-0': form.processing}">
+                    <button type="submit" :disabled="form.processing || $page.props.is_system_closed" 
+                        class="btn-primary w-full sm:w-auto text-base lg:text-lg px-8 lg:px-10 py-4 transform transition-transform duration-300 shadow-lg" 
+                        :class="{
+                            'opacity-50 cursor-not-allowed scale-100 translate-y-0': form.processing || $page.props.is_system_closed,
+                            'hover:scale-105 hover:-translate-y-1 hover:shadow-emerald-500/50': !form.processing && !$page.props.is_system_closed
+                        }">
                         <span v-if="form.processing" class="flex items-center justify-center">
                             <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
                             Evaluando respuestas...
                         </span>
                         <span v-else class="flex items-center justify-center font-bold">
-                            ¡Enviar y ver resultados! 🚀
+                            {{ $page.props.is_system_closed ? 'Tiempo agotado' : '¡Enviar y ver resultados! 🚀' }}
                         </span>
                     </button>
                 </div>

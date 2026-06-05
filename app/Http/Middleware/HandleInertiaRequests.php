@@ -32,9 +32,17 @@ class HandleInertiaRequests extends Middleware
         $user = $request->user();
         $feedback = $user ? \App\Models\Feedback::where('user_id', $user->id)->first() : null;
 
+        $closureTimeStr = \App\Models\Setting::where('key', 'system_closure_time')->value('value');
+        $isSystemClosed = false;
+        if ($closureTimeStr) {
+            $closureTime = \Carbon\Carbon::parse($closureTimeStr);
+            $isSystemClosed = \Carbon\Carbon::now()->greaterThanOrEqualTo($closureTime);
+        }
+
         return [
             ...parent::share($request),
-            'system_closure_time' => \App\Models\Setting::where('key', 'system_closure_time')->value('value'),
+            'system_closure_time' => $closureTimeStr,
+            'is_system_closed' => $isSystemClosed,
             'auth' => [
                 'user' => $user,
                 'has_rated' => (bool)$feedback,
